@@ -196,8 +196,114 @@ Modelin verilerdeki kalıpları bulmaya çalışmasına izin vermek (X, y'ye nas
 
 Regresyon verilerimiz için bir model oluşturmak üzere [Keras Sequential API](https://www.tensorflow.org/api_docs/python/tf/keras/Sequential)'sini kullanarak bunları çalışırken görelim. Ve sonra her birinin üzerinden geçeceğiz.
 
-... devam edecek
+```python
+"""
+Biz her modeli çalıştırdığımızda model, belirli bir metolojide çalışacak.
+Ama burada şu sıkıntı var: Modeli her run ettiğimizde farklı bir sonuç alacağız.
+İşte burada tf.random.set_seed(number) kullanarak o rastgeleliği belirli bir
+yolla bağlamış oluyoruz. Bu sayede her run ettiğimizde aynı sonucu alacağız.
+"""
+tf.random.set_seed(42)
 
+# Sequential API'yi kullanarak bir model oluşturun
+model = tf.keras.Sequential([
+  tf.keras.layers.Dense(1)
+])
+
+# Modeli derleme
+model.compile(loss=tf.keras.losses.mae, # mean absolute error
+              optimizer=tf.keras.optimizers.SGD(), # stochastic gradient descent
+              metrics=["mae"])
+
+# modeli fit etme
+model.fit(X, y, epochs=5)
+```
+
+İşte bu kadar basit :) 
+
+X'e bağlı bir y değeri oluşturan bir modeli geliştirdik.
+
+```python
+# X ve y değerlerini kontrol edelim
+X, y
+```
+> (<tf.Tensor: shape=(8,), dtype=float32, numpy=array([-7., -4., -1.,  2.,  5.,  8., 11., 14.], dtype=float32)>,
+ <tf.Tensor: shape=(8,), dtype=float32, numpy=array([ 3.,  6.,  9., 12., 15., 18., 21., 24.], dtype=float32)>)
+
+```python
+# Var olan bir X değeri ile modelimiz doğru bir y değeri üretecek mi?
+model.predict([8.0])
+```
+Ama ama bu niye böyle oldu :(  Her şeyi doğru yaptık gibi. Modele bir input ve output değeri verdik. Bunu bir sinir ağına bağladık. Fakat doğru sonuçla alakası bile olmayan bir output değeri verdi bize. 
+
+> Bu soruya cevap vermeden önce size kısa bir soru sormak istiyorum. TensorFlow içerisinde hep Keras dediğimiz yapıları görüyoruz. Bu keras nedir? [Cevap](https://i.ibb.co/LNScsJd/cevap1.png)
+
+
+## Bir Model Geliştirmek
+
+Model istediğimiz sonucu vermeyi bırakın, yakınına dahi yanaşamadı. Peki burada çözüm ne?
+
+Doğru tahmin ettiniz. Fine tuning yani ince ayar yapmak. Modeli geliştirmek için hangi adımları uyguladık:
+
+1. **Model oluşturma**<br>
+Burada daha fazla katman eklemek, her katmandaki gizli birimlerin (nöronlar olarak da adlandırılır) sayısını artırmak, her katmanın etkinleştirme işlevlerini değiştirmek isteyebilirsiniz.
+2. **Model derleme**<br>
+Optimizasyon fonksiyonunu seçmek veya belki de optimizasyon fonksiyonunun öğrenme oranını değiştirmek isteyebilirsiniz.
+3. **Modeli fit etme**<br>
+Daha fazla epoch veya daha fazla veri ile daha iyi sonuçlar almak isteyebilirsiniz.
+
+Vay. Az önce bir dizi olası adımı tanıttık. Hatırlanması gereken önemli şey, bunların her birini nasıl değiştireceğiniz, üzerinde çalıştığınız soruna bağlı olacaktır.
+
+```python
+# yukarıda bu yapıyı ayrıntısıyla anlattım
+tf.random.set_seed(42)
+
+# bir önceki modelin aynısını uygulayalım
+model = tf.keras.Sequential([
+  tf.keras.layers.Dense(1)
+])
+
+# modeli aynı şekilde derleyelim
+model.compile(loss=tf.keras.losses.mae,
+              optimizer=tf.keras.optimizers.SGD(),
+              metrics=["mae"])
+
+# şimdi fit edelim, ama bu sefer 100 epoch kullanarak
+model.fit(X, y, epochs=100)
+```
+Yukarı da ki kod bloğunu çalıştırdığınızda MAE değerinin yani kayıp fonksiyonun adım adım düştüğünü gözlemleyeceksiniz. İşte bu anda geriye yaslanıp işlemin bitmesini bekleyebilirsiniz çünkü bu doğru gittiğinizi gösteriyor.
+
+Yukarıda 5 epoch ile eğittimizde hiç güzel bir tahmin değeri almadık. Peki ya şimdi?
+
+```python
+model.predict([8.0])
+```
+İşte buuu 💪 0.33 lük bir sapma var ama modelimiz resmen input ve output değerlerini ile doğru eğitilmiş.
+
+Şimdi de modelimizde olmayan bir sayı ile deneme yapalım. 
+Modelimize tekrar göz atalım. Test etmek için arada ki bağlantıyı bulmamız gerekiyor.
+```python
+X, y
+```
+> (<tf.Tensor: shape=(8,), dtype=float32, numpy=array([-7., -4., -1.,  2.,  5.,  8., 11., 14.], dtype=float32)>,
+ <tf.Tensor: shape=(8,), dtype=float32, numpy=array([ 3.,  6.,  9., 12., 15., 18., 21., 24.], dtype=float32)>)
+ 
+- -7 --> 3
+- -4 --> 6
+- -1 --> 9
+
+Yukarıda ki eşitliklere baktığımızda x + 10 = y gibi bir eşitiğin olduğunu hemen anlayabiliriz. Denklemi çıkardığımıza göre şimdi dizide olmayan bir sayıda nasıl performans gösterdiğini gözlemleyebiliriz.
+
+```python
+model.predict([20]) # cevabın 20+10= 30 olmasını bekliyoruz
+```
+Hımm. Yaklaşık bir sonuç ama tam da istediğimiz bir cevap değil. Modelimizi bir değerlendirelim daha sonra nasıl daha iyi sonuç alacağımızı düşünürüz.
+ 
+ 
+## Modeli Değerlendirme
+
+... devam edecek
+ 
 
 
 
