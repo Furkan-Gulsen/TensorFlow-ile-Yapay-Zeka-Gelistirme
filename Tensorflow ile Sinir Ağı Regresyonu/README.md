@@ -940,23 +940,291 @@ mae(y_test, h5_model_preds.squeeze()).numpy() == mae(y_test, model_2_preds.squee
 ```
 > true
 
+## Daha Büyük Bir Örnek
+
+Pekala, TensorFlow'da sinir ağı regresyon modelleri oluşturmanın temellerini gördük.
+
+Bir adım öteye gidelim ve daha zengin özelliklere sahip bir veri için bir model oluşturalım.
+
+Daha spesifik olarak, yaş, cinsiyet, vücut ağırlığı, çocuklar, sigara içme durumu ve yerleşim bölgesi gibi bir dizi farklı parametreye dayalı olarak bireyler için sağlık sigortası maliyetini tahmin etmeye çalışacağız.
+
+Bunu yapmak için, Kaggle'da bulunan ve GitHub'da barındırılan, herkesin kullanımına açık Tıbbi Maliyet veri kümesinden yararlanacağız.
 
 ```python
+# Gerekli kitaplıkları içe aktarın
+import tensorflow as tf
+import pandas as pd
+import matplotlib.pyplot as plt
 
+# Sigorta veri setini okuyun
+insurance = pd.read_csv("https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv")
+
+# Sigorta veri setine göz atın
+insurance.head()
 ```
+> <img src="https://i.ibb.co/wQhcMF3/5.png" />
+
+Sayısal olmayan sütunları sayısal tipe çevirmemiz gerekecek (çünkü bir sinir ağı sayısal olmayan girdileri işleyemez).
+
+Bunu yapmak için pandas `get_dummies()` yöntemini kullanacağız.
+
+One-hot encoding kullanarak kategorik değişkenleri (cinsiyet, sigara içen ve bölge sütunları gibi) sayısal değişkenlere dönüştürür.
+
+```python
+insurance_one_hot = pd.get_dummies(insurance)
+insurance_one_hot.head()
+```
+> <img src="https://i.ibb.co/fxXyPzk/5.png" />
+Şimdi verileri özellikler (X) ve etiketler (y) olarak ayıracağız.
+
+```python
+X = insurance_one_hot.drop("charges", axis=1)
+y = insurance_one_hot["charges"]
+```
+Ve eğitim ve test setleri oluşturun. Bunu manuel olarak yapabiliriz, ancak kolaylaştırmak için Scikit-Learn'de zaten mevcut olan `train_test_split` işlevinden yararlanacağız.
+
+```python
+# Eğitim ve test setleri oluşturun
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, 
+                                                    y, 
+                                                    test_size=0.2, 
+                                                    random_state=42)
+``` 
+
+Şimdi bir model oluşturup fitleyebiliriz (bunu model_2 ile aynı yapacağız).
+
+
+```python
+tf.random.set_seed(42)
+
+insurance_model = tf.keras.Sequential([
+  tf.keras.layers.Dense(1),
+  tf.keras.layers.Dense(1)
+])
+
+insurance_model.compile(loss=tf.keras.losses.mae,
+                        optimizer=tf.keras.optimizers.SGD(),
+                        metrics=['mae'])
+
+insurance_model.fit(X_train, y_train, epochs=100, verbose=0)
+
+# Sigorta modelinin sonuçlarını kontrol edin
+insurance_model.evaluate(X_test, y_test)
+``` 
+> [8628.2392578125, 8628.2392578125]
+
+Modelimiz pek iyi performans göstermedi, hadi daha büyük bir model ile tekrar deneyelim.
+
+3 şey deneyeceğiz:
+- Katman sayısını artırma (2 -> 3).
+- Her katmandaki birim sayısını artırma (çıktı katmanı hariç)
+- Optimize ediciyi değiştirme (SGD'den Adam'a).
+
+Diğer her şey aynı kalacak.
+
+```python
+tf.random.set_seed(42)
+
+# Fazladan bir katman ekleyin ve birim sayısını artırma
+insurance_model_2 = tf.keras.Sequential([
+  tf.keras.layers.Dense(100), # 100 units
+  tf.keras.layers.Dense(10), # 10 units
+  tf.keras.layers.Dense(1) # 1 unit (çıktı katmanı için önemlidir)
+])
+
+# modeli derleme
+insurance_model_2.compile(loss=tf.keras.losses.mae,
+                          optimizer=tf.keras.optimizers.Adam(), 
+                          metrics=['mae'])
+
+# Modeli sığdır ve history değişkenine kaydet
+history = insurance_model_2.fit(X_train, y_train, epochs=100, verbose=0)
+
+# modeli değerlendirme
+insurance_model_2.evaluate(X_test, y_test)
+``` 
+> [4924.34765625, 4924.34765625]
+
+Çok daha iyi! Daha büyük bir model ve Adam optimize edici kullanmak, önceki modele göre neredeyse yarı yarıya hatayla sonuçlanır.
+
+> 🔑 Not: Birçok sorun için Adam optimize edici harika bir başlangıç ​​seçimidir. Daha fazlası için [A Recipe for Training Neural Networks](http://karpathy.github.io/2019/04/25/recipe/)
+
+Modelimizin kayıp eğrilerine bir göz atalım, aşağı yönlü bir trend görmeliyiz.
+
+```python
+pd.DataFrame(history.history).plot()
+plt.ylabel("loss")
+plt.xlabel("epochs");
+``` 
+> <img src="https://i.ibb.co/gRJSQLp/5.png" />
+
+Buradan, modelimizin kaybının (ve MAE) her ikisinin de hala azalmakta olduğu görülüyor (bizim durumumuzda, MAE ve kayıp aynı, dolayısıyla çizgiler birbiriyle örtüşüyor).
+
+Bunun bize söylediği şey, onu daha uzun süre eğitmeye çalışırsak kaybın düşebileceğidir.
+
+> 🤔 Soru: Ne kadar süre eğitim yapmalısınız?
+
+> Hangi sorun üzerinde çalıştığınıza bağlı. Bazen eğitim çok uzun sürmez, bazen beklediğinizden daha uzun sürer. Yaygın bir yöntem, model eğitiminizi çok uzun bir süre için ayarlamaktır (ör. 1000'lerce epoch), ancak bunu bir [EarlyStopping](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping) callback değeri ile ayarlamaktır, böylece gelişmeyi bıraktığında otomatik olarak durur. Bunu başka bir eğitimde göreceğiz.
+
+Yukarıdaki modeli biraz daha uzun süre eğitelim.
+
+```python
+# Biraz daha uzun süre antrenman yapmayı deneyin (100 epoch daha)
+history_2 = insurance_model_2.fit(X_train, y_train, epochs=100, verbose=0)
+``` 
+
+```python
+# Toplam 200 dönem için eğitilen modeli değerlendirin
+insurance_model_2_loss, insurance_model_2_mae = insurance_model_2.evaluate(X_test, y_test)
+insurance_model_2_loss, insurance_model_2_mae
+``` 
+> (3494.728515625, 3494.728515625)
+
+Başardık! Fazladan 100 epoch eğitim, hatada yaklaşık %10'luk bir azalma görüyoruz.
+
+```python
+pd.DataFrame(history_2.history).plot()
+plt.ylabel("loss")
+plt.xlabel("epochs"); 
+``` 
+> <img src="https://i.ibb.co/WcxBpnW/5.png" />
+
+
+## Ön İşleme Verileri (normalleştirme ve standardizasyon)
+
+Sinir ağlarıyla çalışırken yaygın bir uygulama, onlara ilettiğiniz tüm verilerin 0 ila 1 aralığında olduğundan emin olmaktır.
+
+Bu uygulamaya normalleştirme denir (tüm değerleri orijinal aralıklarından 0 ile 100.000 arasında 0 ile 1 arasında olacak şekilde ölçeklendirmek).
+
+Tüm verilerinizi birim varyansa ve 0 ortalamaya dönüştüren başka bir işlem çağrısı standardizasyonu vardır.
+
+Bu iki uygulama genellikle bir ön işleme hattının (verilerinizi sinir ağlarıyla kullanıma hazırlamak için bir dizi işlev) parçasıdır.
+
+Bunu bilerek, bir sinir ağı için verilerinizi önceden işlemek üzere atacağınız bazı önemli adımlardan bazıları şunlardır:
+
+- Tüm verilerinizi sayılara çevirmek (bir sinir ağı dizeleri işleyemez).
+- Verilerinizin doğru şekilde olduğundan emin olun (giriş ve çıkış şekillerini doğrulama).
+- Özellik ölçeklendirme:
+  - Verileri normalleştirme (tüm değerlerin 0 ile 1 arasında olduğundan emin olun). Bu, minimum değerin çıkarılması ve ardından maksimum değerin minimumdan çıkarılmasıyla yapılır. Bu aynı zamanda min-maks ölçekleme olarak da adlandırılır.
+  - Standardizasyon (tüm değerlerin ortalamasının 0 ve varyansının 1 olduğundan emin olun). Bu, ortalama değerin hedef özellikten çıkarılması ve ardından standart sapmaya bölünmesiyle yapılır.
+  - Hangisini kullanmalısınız?
+    - Sinir ağlarında, 0 ile 1 arasındaki değerleri tercih etme eğiliminde oldukları için normalleştirmeyi tercih edeceksiniz (bunu özellikle görüntü işlemede göreceksiniz), ancak genellikle bir sinir ağının minimum özellik ölçekleme ile oldukça iyi performans gösterebileceğini göreceksiniz.
+
+
+> 📖 Kaynak: Ön işleme verileri hakkında daha fazla bilgi için aşağıdaki kaynakları okumanızı tavsiye ederim:
+
+* [Scikit-Learn'ün ön işleme verileriyle ilgili belgeleri.](https://scikit-learn.org/stable/modules/preprocessing.html#preprocessing-data)
+* [Jeff Hale'den Scikit-Learn ile Ölçeklendirin, Standartlaştırın veya Normalleştirin.](https://towardsdatascience.com/scale-standardize-or-normalize-with-scikit-learn-6ccc7d176a02)
+
+Verilerimizi `get_dummies()` kullanarak zaten sayılara dönüştürdük, nasıl normalleştireceğimize de bakalım.
+
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import tensorflow as tf
+
+insurance = pd.read_csv("https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv")
+``` 
+
+Şimdi, daha önce olduğu gibi, sayısal olmayan sütunları sayılara dönüştürmemiz gerekiyor ve bu sefer de sayısal sütunları farklı aralıklarla normalleştireceğiz (hepsinin 0 ile 1 arasında olduğundan emin olmak için).
+
+Bunu yapmak için Scikit-Learn'den birkaç sınıf kullanacağız:
+
+- make_column_transformer - aşağıdaki dönüşümler için çok adımlı bir veri ön işleme işlevi oluşturun:
+  - MinMaxScaler - tüm sayısal sütunların normalleştirildiğinden emin olun (0 ile 1 arasında).
+  - OneHotEncoder - sayısal olmayan sütunları kodlar.
+
+
+```python
+from sklearn.compose import make_column_transformer
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+
+# Verilerimizi normalleştirme/ön işleme
+ct = make_column_transformer(
+    (MinMaxScaler(), ["age", "bmi", "children"]), # tüm değerleri 0-1 arasında alma
+    (OneHotEncoder(handle_unknown="ignore"), ["sex", "smoker", "region"])
+)
+
+# X & y oluştur
+X = insurance.drop("charges", axis=1)
+y = insurance["charges"]
+
+# Tren ve test setlerimizi oluşturun (önceki gibi aynı bölünmeyi sağlamak için rastgele durumu kullanın)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Modeli fit etme
+ct.fit(X_train)
+
+# Normalleştirme (MinMaxScalar) ve o one-hot encoding (OneHotEncoder) ile eğitim ve test verilerini dönüştürün
+X_train_normal = ct.transform(X_train)
+X_test_normal = ct.transform(X_test)
+``` 
+
+Verilerimiz şimdi nasıl görünüyor?
+
+
+```python
+# Normalleştirilmemiş ve one-hot encoding olmayan kodlanmış veri örneği
+X_train.loc[0]
+``` 
+> <img src="https://i.ibb.co/0GNc12t/6.png" />
+
+
+```python
+# normalize ve one-hot kodlanmış örnek
+X_train_normal[0]
+``` 
+> array([0.60869565, 0.10734463, 0.4       , 1.        , 0.        ,
+       1.        , 0.        , 0.        , 1.        , 0.        ,
+       0.        ])
 
 
 
 ```python
+# Normalleştirilmiş/one-hot kodlanmış şeklin fazladan sütunlar nedeniyle daha büyük olduğuna dikkat edin
+X_train_normal.shape, X_train.shape
+``` 
+> ((1070, 11), (1070, 6))
 
-```
+Verilerimiz normalize edilmiş ve sayısaldır, hadi modelleyelim.
 
-
-
+insurance_model_2 ile aynı modeli kullanacağız.
 
 ```python
+tf.random.set_seed(42)
 
-```
+insurance_model_3 = tf.keras.Sequential([
+  tf.keras.layers.Dense(100),
+  tf.keras.layers.Dense(10),
+  tf.keras.layers.Dense(1)
+])
 
+insurance_model_3.compile(loss=tf.keras.losses.mae,
+                          optimizer=tf.keras.optimizers.Adam(),
+                          metrics=['mae'])
+
+insurance_model_3.fit(X_train_normal, y_train, epochs=200, verbose=0) 
+
+insurance_model_3_loss, insurance_model_3_mae = insurance_model_3.evaluate(X_test_normal, y_test)
+``` 
+
+Ve son olarak, insurance_model_2 (normalleştirilmemiş veriler üzerinde eğitilmiş) ve insurance_model_3 (normalleştirilmiş veriler üzerinde eğitilmiş) sonuçlarını karşılaştıralım.
+
+```python
+# Normalleştirilmemiş verilerden ve normalleştirilmiş verilerden modelleme sonuçlarını karşılaştırın
+insurance_model_2_mae, insurance_model_3_mae
+``` 
+
+Bundan, verileri normalleştirmenin, aynı modeli kullanarak verileri normalleştirmemeye göre %10 daha az hatayla sonuçlandığını görebiliriz.
+
+Bu, normalleştirmenin ana faydalarından biridir: daha hızlı yakınsama süresi (söylemenin süslü bir yolu, modeliniz daha hızlı daha iyi sonuçlara ulaşır).
+
+insurance_model_2, eğitimini daha uzun süre bırakırsak, sonunda insurance_model_3 ile aynı sonuçları elde etmiş olabilir.
+
+Ayrıca, modellerin mimarilerini değiştirecek olursak sonuçlar değişebilir, örn. katman veya daha fazla katman başına daha fazla gizli birim.
+
+Ancak sinir ağı uygulayıcıları olarak asıl amacımız deneyler arasındaki süreyi azaltmak olduğundan, daha iyi sonuçları daha erken almamıza yardımcı olan her şey bir artıdır.
 
 
