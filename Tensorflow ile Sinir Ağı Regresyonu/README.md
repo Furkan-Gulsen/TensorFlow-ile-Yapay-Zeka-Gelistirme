@@ -744,6 +744,207 @@ mae_1, mse_1
 ```
 > (18.745327, 353.57336)
 
+`model_2`
+
+Bu sefer ekstra yoğun bir katman ekleyeceğiz (böylece artık modelimiz 2 katmana sahip olacak), diğer her şeyi aynı tutacağız.
+
+```python
+tf.random.set_seed(42)
+
+model_2 = tf.keras.Sequential([
+  tf.keras.layers.Dense(1),
+  tf.keras.layers.Dense(1) # ikinci katmanı ekliyoruz
+])
+
+# modeli derleme
+model_2.compile(loss=tf.keras.losses.mae,
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=['mae'])
+
+# modeli fit etme
+model_2.fit(X_train, y_train, epochs=100, verbose=0)
+```
+
+```python
+# tahminleri model_2 için görselleştirelim
+y_preds_2 = model_2.predict(X_test)
+plot_predictions(predictions=y_preds_2)
+```
+> <img src="https://i.ibb.co/jgMsKNM/3.png" />
+
+Çoook iyi. Tek gereken şey ekstradan bir katmanmış.
+
+```python
+mae_2 = mae(y_test, y_preds_2.squeeze()).numpy()
+mse_2 = mse(y_test, y_preds_2.squeeze()).numpy()
+mae_2, mse_2
+```
+> (1.9098114, 5.459232)
+
+
+`model_3`
+
+3.modelimiz için her şeyi model_2 ile aynı tutacağız, ancak bu sefer daha uzun train edeceğiz (100 yerine 500 epoch).
+
+Bu, modelimize verilerdeki kalıpları öğrenme şansı verecektir.
+
+
+```python
+tf.random.set_seed(42)
+
+model_3 = tf.keras.Sequential([
+  tf.keras.layers.Dense(1),
+  tf.keras.layers.Dense(1) 
+])
+
+# modeli derleme
+model_3.compile(loss=tf.keras.losses.mae,
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=['mae'])
+
+# modeli fit etme (100 yerine 500 epoch)
+model_3.fit(X_train, y_train, epochs=500, verbose=0)
+```
+
+Modeli görselleştirmeden önce epoch terimini anlatmadığımı fark ettim. Şuan çokca kullanıyoruz ve bilmemeniz neden sonucun değiştiğini anlamanızı zorlaştırabilir.
+
+> Kısaca epoch, eğitim sırasında tüm eğitim verilerinin ağa gösterilme sayısıdır. Daha fazla ayrıntı için [bu yazıyı](https://medium.com/deep-learning-turkiye/derin-ogrenme-uygulamalarinda-en-sik-kullanilan-hiper-parametreler-ece8e9125c4) okuyabilirsiniz.
+
+
+```python
+# tahminleri model_3 için görselleştirelim
+y_preds_3 = model_3.predict(X_test)
+plot_predictions(predictions=y_preds_3)
+```
+> <img src="https://i.ibb.co/dLfmNb2/4.png" />
+
+Amaa daha iyi olması gerekmiyor muydu modelin?
+
+Görünen o ki, modelimiz çok uzun süre eğitilmiş ve bu nedenle daha kötü sonuçlara yol açmış olabilir (daha sonra eğitimi çok uzun süre engellemenin yollarını göreceğiz).
+
+```python
+mae_3 = mae(y_test, y_preds_3.squeeze()).numpy()
+mse_3 = mse(y_test, y_preds_3.squeeze()).numpy()
+mae_3, mse_3
+```
+> (68.68786, 4804.4717)
+
+### Sonuçları Karşılaştırma
+
+
+```python
+model_results = [["model_1", mae_1, mse_1],
+                 ["model_2", mae_2, mse_2],
+                 ["model_3", mae_3, mse_3]]
+```
+
+```python
+import pandas as pd
+all_results = pd.DataFrame(model_results, columns=["model", "mae", "mse"])
+all_results
+```
+> <img src="https://i.ibb.co/bPDFRbf/5.png" />
+
+En iyi performansı `model_2` gösteriyor.
+
+Ve şimdi, "modelleri karşılaştırmak sıkıcı..." diye düşünebilirsiniz ama burada sadece 3 modeli karşılaştırdık.
+
+Ancak bu, birçok farklı model kombinasyonunu denemek ve hangisinin en iyi performansı gösterdiğini görmek, makine öğrenimi modellemesinin neyle ilgili olduğunun bir parçasıdır.
+
+Oluşturduğunuz her model küçük bir deneydir.
+
+> 🔑 Not: Ana hedeflerinizden biri, deneyleriniz arasındaki süreyi en aza indirmek olmalıdır. Ne kadar çok deney yaparsanız, hangilerinin işe yaramadığını o kadar çok anlarsınız ve sırayla neyin işe yaradığını bulmaya yaklaşırsınız. Makine öğrenimi uygulayıcısının sloganını hatırlayın: "deney, deney, deney".
+
+Ayrıca bulacağınız başka bir şey de işe yarayacağını düşündüğünüz şeyin (bir modeli daha uzun süre eğitmek gibi) her zaman işe yaramayabilir ve çoğu zaman tam tersi de geçerlidir.
+
+
+
+### Denemelerinizi izleme
+
+Hangisinin diğerlerinden daha iyi performans gösterdiğini görmek için modelleme deneylerinizi takip etmek, gerçekten iyi bir alışkanlıktır.
+
+Yukarıda bunun basit bir versiyonunu yaptık (sonuçları farklı değişkenlerde tutarak).
+
+> 📖 Kaynak: Ancak daha fazla model oluşturduğunuzda, aşağıdaki gibi araçları kullanmak isteyeceksiniz:
+
+- **[TensorBoard](https://tensorboard.dev/)**
+TensorFlow kitaplığının modelleme deneylerini izlemeye yardımcı olan bir bileşeni (bunu daha sonra göreceğiz).
+
+- **[Weights & Biases](https://wandb.ai/site)**
+Her türlü makine öğrenimi deneyini izlemek için bir araç.
+
+
+
+## Bir Modeli Kaydetme
+
+Bir modeli eğittiğinizde ve beğeninize uygun bir model bulduğunuzda, muhtemelen onu başka bir yerde (bir web uygulaması veya mobil cihaz gibi) kullanmak üzere kaydetmek isteyeceksiniz.
+
+`model.save()` kullanarak bir TensorFlow/Keras modelini kaydedebilirsiniz.
+
+TensorFlow'da bir modeli kaydetmenin iki yolu vardır:
+
+- [SavedModel](https://www.tensorflow.org/tutorials/keras/save_and_load#savedmodel_format) biçimi (varsayılan).
+- [HDF5](https://www.tensorflow.org/tutorials/keras/save_and_load#hdf5_format) formatı.
+
+İkisi arasındaki temel fark, SavedModel'in, modeli tekrar yüklerken ek değişiklikler yapmadan özel nesneleri (özel katmanlar gibi) otomatik olarak kaydedebilmesidir.
+
+Hangisini kullanmalısınız?
+
+Durumunuza bağlıdır ancak SavedModel formatı çoğu zaman yeterli olacaktır.
+
+Her iki yöntem de aynı yöntem çağrısını kullanır.
+
+```python
+# SavedModel formatını kullanarak bir modeli kaydedin
+model_2.save('best_model_SavedModel_format')
+
+# Kontrol et - diğer dosyaların yanı sıra bir protobuf ikili dosyası (.pb) verir
+!ls best_model_SavedModel_format
+```
+> assets	keras_metadata.pb  saved_model.pb  variables
+
+Şimdi modeli HDF5 formatında kaydedelim, aynı yöntemi kullanacağız ama farklı bir dosya adıyla.
+
+```python
+# HDF5 formatını kullanarak bir modeli kaydedin
+model_2.save("best_model_HDF5_format.h5") # sonuna '.h5' eklenmesine dikkat edin
+
+!ls best_model_HDF5_format.h5
+```
+> best_model_HDF5_format.h5
+
+## Modeli Yükleme
+
+`load_model()` yöntemini kullanarak kaydedilmiş bir modeli yükleyebiliriz.
+
+Farklı biçimler (SavedModel ve HDF5) için bir model yüklemek aynıdır (belirli biçimlerin yol adları doğru olduğu sürece).
+
+
+```python
+loaded_saved_model = tf.keras.models.load_model("best_model_SavedModel_format")
+
+# model_2'yi SavedModel sürümüyle karşılaştırın (True döndürmeli)
+model_2_preds = model_2.predict(X_test)
+saved_model_preds = loaded_saved_model.predict(X_test)
+mae(y_test, saved_model_preds.squeeze()).numpy() == mae(y_test, model_2_preds.squeeze()).numpy()
+```
+> True
+
+```python
+# HDF5 formatından bir model yükleyin
+loaded_h5_model = tf.keras.models.load_model("best_model_HDF5_format.h5")
+
+# Model_2'yi yüklü HDF5 sürümüyle karşılaştırın (True döndürmeli)
+h5_model_preds = loaded_h5_model.predict(X_test)
+mae(y_test, h5_model_preds.squeeze()).numpy() == mae(y_test, model_2_preds.squeeze()).numpy()
+```
+> true
+
+
+```python
+
+```
+
 
 
 ```python
@@ -756,37 +957,6 @@ mae_1, mse_1
 ```python
 
 ```
-
-
-
-```python
-
-```
-
-
-
-```python
-
-```
-
-
-
-```python
-
-```
-
-
-
-```python
-
-```
-
-
-
-```python
-
-```
-
 
 
 
