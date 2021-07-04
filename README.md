@@ -7,9 +7,8 @@ Bu sayfa da Türkçe olarak TensorFlow kullanarak derin öğrenme (deep learning
 > Not: Sayfa henüz yapım aşamasındadır. Yukarıda klasör halinde ki notların çalışması bitmiştir. Diğerlerinin yaratma aşaması devam etmektedir.
 
 İçerik
-- [TensorFlow ile Sinir Ağı Regresyonu](https://github.com/Furkan-Gulsen/TensorFlow-Developer-Certificate/tree/main/Tensorflow%20ile%20Sinir%20A%C4%9F%C4%B1%20Regresyonu)
+- [TensorFlow ile Sinir Ağı Regresyonu](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/Tensorflow%20ile%20Sinir%20A%C4%9F%C4%B1%20Regresyonu)
 - [TensorFlow ile Sinir Ağı Sınıflandırılması]()
-- [TensorFlow ile Sinir Ağı Regresyonu]()
 - [Evrişimsel Sinir Ağları (CNN) ]()
 - [Transfer Learning - Özellik Çıkarımı (Feature extraction)]()
 - [Transfer Learning - İnce Ayarlama (Fine Tuning)]()
