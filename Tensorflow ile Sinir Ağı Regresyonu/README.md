@@ -302,13 +302,490 @@ Hımm. Yaklaşık bir sonuç ama tam da istediğimiz bir cevap değil. Modelimiz
  
 ## Modeli Değerlendirme
 
-... devam edecek
- 
+Sinir ağı oluştururken takip edilen tipik bir akış var:
+```
+Bir model yarat -> Onu değerlendir -> Bir model yarat -> Onu değerlendir -> Bir model yarat -> Onu değerlendir ...
+```
+Fine tuning (ince ayarlama), sıfırdan bir model oluşturmak değil, mevcut bir model üzerinde ayarlamalar yapmaktır.
+
+Modeli değerlendirirken yapılacak en güzel davranışlardan bazıları şunlardır:
+- Görselleştirin
+- Görselleştirin
+- Görselleştirin
+
+Lütfen modeli görselleştirin. Görselleştirmeniz gereken bazı fikirler:
+- Veriler - hangi verilerle çalışıyorsunuz? Nasıl görünüyor?
+- Modelin kendisi - mimari neye benziyor? Farklı şekiller nelerdir?
+- Bir modelin eğitimi - bir model öğrenirken nasıl performans gösterir?
+- Bir modelin tahminleri - bir modelin tahminleri temel gerçeğe (orijinal etiketler) karşı nasıl sıralanır?
+
+Görselleştirmeyi 1 adım sonraya erteliyoruz çünkü yukarıda eğittiğimiz model tam da istediğimiz sonucu vermedi. Bu yüzden yukarıda ki modeli daha fazla veri ile tekrar eğitmek iyi olabilir.
+
+```python
+# Daha büyük bir veriseti yaratma
+X = np.arange(-100, 100, 4)
+X
+```
+> array([-100,  -96,  -92,  -88,  -84,  -80,  -76,  -72,  -68,  -64,  -60,
+        -56,  -52,  -48,  -44,  -40,  -36,  -32,  -28,  -24,  -20,  -16,
+        -12,   -8,   -4,    0,    4,    8,   12,   16,   20,   24,   28,
+         32,   36,   40,   44,   48,   52,   56,   60,   64,   68,   72,
+         76,   80,   84,   88,   92,   96])
+
+```python
+# şimdi de etiketlerini oluşturalım
+y = np.arange(-90, 110, 4)
+y
+```
+> array([-90, -86, -82, -78, -74, -70, -66, -62, -58, -54, -50, -46, -42,
+       -38, -34, -30, -26, -22, -18, -14, -10,  -6,  -2,   2,   6,  10,
+        14,  18,  22,  26,  30,  34,  38,  42,  46,  50,  54,  58,  62,
+        66,  70,  74,  78,  82,  86,  90,  94,  98, 102, 106])
+
+`x + 10 = y` eşitliği sağladık gibi duruyor. 
+
+### Verileri Train ve Test Olarak Ayırma
+
+Bir makine öğrenimi projesindeki diğer en yaygın ve önemli adımlardan biri, bir eğitim ve test seti (ve gerektiğinde bir doğrulama seti) oluşturmaktır.
+
+Her set belirli bir amaca hizmet eder:
+
+- **Eğitim seti**<br>
+Model, genellikle mevcut toplam verilerin (epoch boyunca çalıştığınız ders materyalleri gibi) %70-80'i olan bu verilerden öğrenir.
+- **Doğrulama seti**<br> 
+Model, genellikle mevcut toplam verilerin %10-15'i olan bu verilere göre ayarlanır (final sınavından önce girdiğiniz alıştırma sınavı gibi).
+- **Test seti**<br>
+Model, öğrendiklerini test etmek için bu veriler üzerinde değerlendirilir, genellikle mevcut toplam verilerin %10-15'i kadardır (dönem sonunda girdiğiniz final sınavı gibi).
+
+Şimdilik sadece bir eğitim ve test seti kullanacağız, bu, modelimizin öğrenilmesi ve değerlendirilmesi için bir veri setimiz olacağı anlamına geliyor.
+
+X ve y dizilerimizi bölerek bunları oluşturabiliriz.
+
+> 🔑 Not: Gerçek dünya verileriyle uğraşırken, bu adım tipik olarak bir projenin hemen başlangıcında yapılır (test seti her zaman diğer tüm verilerden ayrı tutulmalıdır). Modelimizin eğitim verilerini öğrenmesini ve ardından görünmeyen örneklere ne kadar iyi genelleştiğine dair bir gösterge elde etmek için test verileri üzerinde değerlendirmesini istiyoruz.
+
+```python
+# verisetimizin büyüklüğüne bakalım
+len(X)
+```
+> 50
+
+
+```python
+# verileri train ve test olarak ayıralım
+X_train = X[:40] # verilerin %80'ine denk geliyor
+y_train = y[:40]
+
+X_test = X[40:]
+y_test = y[40:]
+
+len(X_train), len(X_test)
+```
+> (40, 10)
+
+
+### Verileri Görselleştirme
+
+Artık eğitim ve test verilerimiz var, artık bunu görselleştirmek iyi bir fikir.
+
+Neyin ne olduğunu ayırt etmek için güzel renklerle çizelim.
+
+```python
+plt.figure(figsize=(10, 7))
+# train verileri mavi olsun
+plt.scatter(X_train, y_train, c='b', label='Training data')
+# test verileri yeşil olsun
+plt.scatter(X_test, y_test, c='g', label='Testing data')
+plt.legend();
+```
+> <img src="https://i.ibb.co/xDL5jBD/indir.png" />
+
+Güzel! Verilerinizi, modelinizi, herhangi bir şeyi görselleştirebildiğiniz her an, bu iyi bir fikirdir.
+
+Bu grafiği göz önünde bulundurarak, yeşil noktaları (X_test) çizmek için mavi noktalardaki (X_train) deseni öğrenen bir model oluşturmaya çalışacağız.
+
+```python
+tf.random.set_seed(42)
+
+# bir model yaratma
+model = tf.keras.Sequential([
+  tf.keras.layers.Dense(1)
+])
+
+# modeli derleme
+model.compile(loss=tf.keras.losses.mae,
+              optimizer=tf.keras.optimizers.SGD(),
+              metrics=["mae"])
+
+# modeli fit etme
+# model.fit(X_train, y_train, epochs=100) # commented out on purpose (not fitting it just yet)
+```
+
+### Modeli Görselleştirme
+
+Bir model oluşturduktan sonra, ona bir göz atmak isteyebilirsiniz (özellikle daha önce çok model oluşturmadıysanız).
+
+Modelinizin katmanlarını ve şekillerini, üzerinde Summary()'i arayarak inceleyebilirsiniz.
+
+🔑 Not: Bir modeli görselleştirmek, özellikle girdi ve çıktı şekli uyumsuzluklarıyla karşılaştığınızda faydalıdır.
+
+```python
+# çalışmayacak (modeli fit etmedik)
+model.summary()
+```
+> ValueError
+
+Sizce yukarıda ki hatanın sebebi modeli fit etmememiz mi? Hımm. Hata mesajını okuduğumuzda `input_shape` değerinin olmadığını söylüyor. 
+
+`Input_shape` değeri ilk katmana girilir. Şimdi deneyelim ve bakalım hata gideriliyor mu?
+
+
+```python
+tf.random.set_seed(42)
+
+# bir model yaratma
+model = tf.keras.Sequential([
+  tf.keras.layers.Dense(1, input_shape=[1])
+])
+
+# modeli derleme
+model.compile(loss=tf.keras.losses.mae,
+              optimizer=tf.keras.optimizers.SGD(),
+              metrics=["mae"])
+
+# modeli fit etme
+# model.fit(X_train, y_train, epochs=100) # commented out on purpose (not fitting it just yet)
+```
+
+```python
+model.summary()
+```
+> <img src="https://i.ibb.co/8cZRccR/Ekran-g-r-nt-s-2021-07-04-120440.png" />
+
+Modelimizde `summary()` işlevini çağırmak bize içerdiği katmanları, çıktı şeklini ve parametre sayısını gösterir.
+
+- **Toplam parametreler**<br>
+Modeldeki toplam parametre sayısı.
+- **Eğitilebilir parametreler**<br>
+Bunlar, modelin eğitirken güncelleyebileceği parametrelerdir (kalıplardır).
+- **Eğitilemez parametreler**<br>
+Bu parametreler eğitim sırasında güncellenmez (bu, transfer learninig sırasında diğer modellerden önceden öğrenilmiş kalıpları getirdiğinizde tipiktir).
+
+> 📖 Kaynak: Bir katmandaki eğitilebilir parametrelere daha derinlemesine bir genel bakış için [MIT'nin derin öğrenme videosuna](https://www.youtube.com/watch?v=njKP3FqW3Sk) girişine göz atın.
+
+> 🛠 Alıştırma: Dense katmandaki gizli birimlerin sayısıyla oynamayı deneyin (örn. `Dense(2)`, `Dense(3)`). Bu, Toplam/Eğitilebilir parametreleri nasıl değiştirir? Değişikliğe neyin sebep olduğunu araştırın.
+
+Şimdilik, bu parametreler hakkında düşünmeniz gereken tek şey, bunların verilerdeki öğrenilebilir kalıplarıdır.
+
+Modelimizi eğitim verileriyle fir edelim şimdi.
+
+
+```python
+# modeli eğitim verileriyle fit etme
+model.fit(X_train, y_train, epochs=100, verbose=0)
+```
+
+Özetin yanı sıra plot_model() kullanarak modelin 2D grafiğini de görüntüleyebilirsiniz.
+
+```python
+from tensorflow.keras.utils import plot_model
+
+plot_model(model, show_shapes=True)
+```
+> <img src="https://i.ibb.co/8cZRccR/Ekran-g-r-nt-s-2021-07-04-120440.png" />
+
+Bizim durumumuzda, kullandığımız modelin yalnızca bir girdisi ve bir çıktısı var, ancak daha karmaşık modelleri görselleştirmek hata ayıklama için çok yardımcı olabilir.
+
+### Tahminleri Görselleştirme
+
+Şimdi eğitilmiş bir modelimiz var, hadi bazı tahminleri görselleştirelim.
+
+Tahminleri görselleştirmek için, onları temel gerçek etiketlerine göre planlamak her zaman iyi bir fikirdir.
+
+Bunu genellikle y_test ve y_pred (gerçek ve tahminler) şeklinde görürsünüz.
+
+İlk olarak, test verileri (X_test) üzerinde bazı tahminler yapacağız, modelin test verilerini hiç görmediğini unutmayın.
+
+
+```python
+# modeli predict edelim (X_test verileri ile)
+y_preds = model.predict(X_test)
+
+# tahminleri görelim
+y_preds
+```
+> array([[53.57109 ],
+       [57.05633 ],
+       [60.541573],
+       [64.02681 ],
+       [67.512054],
+       [70.99729 ],
+       [74.48254 ],
+       [77.96777 ],
+       [81.45301 ],
+       [84.938255]], dtype=float32)
+
+Bunları gerçek değerler ile karşılaştırıp modelin doğruluğunu anlamak için bir fonksiyon yaratalım:
+
+```python
+def plot_predictions(train_data=X_train, 
+                     train_labels=y_train, 
+                     test_data=X_test, 
+                     test_labels=y_test, 
+                     predictions=y_preds):
+  """
+  Eğitim verilerini, test verilerini görselleştirir ve tahminleri karşılaştırır.
+  """
+  plt.figure(figsize=(10, 7))
+  # train verileri mavi olsun
+  plt.scatter(train_data, train_labels, c="b", label="Training data")
+  # test verileri yeşil olsun
+  plt.scatter(test_data, test_labels, c="g", label="Testing data")
+  # tahmin değerleri kırmızı olsun
+  plt.scatter(test_data, predictions, c="r", label="Predictions")
+  plt.legend();
+  
+plot_predictions(train_data=X_train,
+                 train_labels=y_train,
+                 test_data=X_test,
+                 test_labels=y_test,
+                 predictions=y_preds)
+```
+> <img src="https://i.ibb.co/Vv70dWN/indir-2.png" />
+
+### Tahminleri Değerlendirme
+
+Görselleştirmelerin yanı sıra değerlendirme metrikleri, modelinizi değerlendirmek için alternatif en iyi seçeneğinizdir.
+
+Üzerinde çalıştığınız soruna bağlı olarak, farklı modellerin farklı değerlendirme ölçütleri vardır.
+
+Regresyon problemleri için kullanılan ana metriklerden ikisi şunlardır:
+
+- **Mean absolute error (MAE)**<br>
+Tahminlerin her biri arasındaki ortalama fark.
+- **Mean squared error (MSE)**<br>
+Tahminler arasındaki kare ortalama fark.
+
+Bu değerlerin her biri ne kadar düşükse, o kadar iyidir.
+
+Ayrıca, derleme adımı sırasında herhangi bir ölçüm ayarının yanı sıra modelin kaybını döndürecek olan `model.evaluate()` öğesini de kullanabilirsiniz.
+
+```python
+model.evaluate(X_test, y_test)
+```
+> [18.74532699584961, 18.74532699584961]
+
+Biz MAE(`metrics=['MAE']`) değerini kullandığımız için evaluate fonksiyonu bize MAE değerini döndürecektir.
+
+TensorFlow'da ayrıca MSE ve MAE için ayrı olarak fonksiyonlar vardır. Bunlar değerlendirme için ayrıca kullanılabilir.
+
+
+```python
+# MAE değerini fonksiyon ile hesaplama
+mae = tf.metrics.mean_absolute_error(y_true=y_test, 
+                                     y_pred=y_preds)
+mae
+```
+> <tf.Tensor: shape=(10,), dtype=float32, numpy=
+array([34.42891 , 30.943668, 27.45843 , 23.97319 , 20.487946, 17.202168,
+       14.510478, 12.419336, 11.018796, 10.212349], dtype=float32)>
+
+Aaa. Neden bir çıktı yerine on farklı çıktı aldık?
+
+Bunun nedeni, y_test ve y_preds tensorlerinin farklı şekillerde olmasından kaynaklanıyor.
+
+```python
+# y etiket tensorünü kontrol edelim
+y_test
+```
+> array([ 70,  74,  78,  82,  86,  90,  94,  98, 102, 106])
+
+```python
+# tahminleri kontrol edelim
+y_preds
+```
+> array([[53.57109 ],
+       [57.05633 ],
+       [60.541573],
+       [64.02681 ],
+       [67.512054],
+       [70.99729 ],
+       [74.48254 ],
+       [77.96777 ],
+       [81.45301 ],
+       [84.938255]], dtype=float32)
+
+```python
+# tesorlerin şekillerini kontrol edelim
+y_test.shape, y_preds.shape
+```
+> ((10,), (10, 1))
+
+Hatırlarsanız en başta Input ve Outpu değerlerini konuşmuşduk. Ve o sorun geldi çattı. Bu değerlerin aynı şekillere sahip olmasoı gerekiyor yoksa değerlendirmemiz imkansız.
+
+`squeeze()` kullanarak bunu düzeltebiliriz, 1 boyutunu y_preds tensörümüzden kaldıracak ve onu y_test ile aynı şekle getirecektir.
+
+```python
+# squeeze() kullanmadan önce
+y_preds.shape
+```
+> (10, 1)
+
+
+```python
+# squeeze() kullandıktan sonra
+y_preds.squeeze().shape
+```
+> (10, )
+
+```python
+# verilere  ayrıntılı bakalım
+y_test, y_preds.squeeze()
+```
+> (array([ 70,  74,  78,  82,  86,  90,  94,  98, 102, 106]),
+ array([53.57109 , 57.05633 , 60.541573, 64.02681 , 67.512054, 70.99729 ,
+        74.48254 , 77.96777 , 81.45301 , 84.938255], dtype=float32))
+
+Tamamdır, şimdi y_test ve y_preds tensorlerımızı nasıl aynı şekle getireceğimizi biliyoruz, hadi değerlendirme metriklerimizi kullanalım.
+
+```python
+# MAE değerini hesaplama
+mae = tf.metrics.mean_absolute_error(y_true=y_test, 
+                                     y_pred=y_preds.squeeze())
+
+# MSE değerini hesaplama
+mse = tf.metrics.mean_squared_error(y_true=y_test,
+                                    y_pred=y_preds.squeeze())
+mse, mae
+```
+> (<tf.Tensor: shape=(), dtype=float32, numpy=18.745327>, <tf.Tensor: shape=(), dtype=float32, numpy=353.57336> )
+
+MAE'yi saf TensorFlow işlevlerini kullanarak da hesaplayabiliriz.
+
+```python
+tf.reduce_mean(tf.abs(y_test-y_preds.squeeze()))
+```
+> <tf.Tensor: shape=(), dtype=float64, numpy=18.745327377319335>
+
+Yine, tekrar kullanabileceğinizi (veya kendinizi tekrar tekrar kullanırken bulabileceğinizi) düşündüğünüz herhangi bir şeyi işlevsel hale getirmek iyi bir fikirdir.
+
+Değerlendirme metriklerimiz için fonksiyonlar yaratalım
+
+```python
+def mae(y_test, y_pred):
+  """
+  y_test ve y_preds arasındaki ortalama mutlak hatayı hesaplar.
+  """
+  return tf.metrics.mean_absolute_error(y_test,
+                                        y_pred)
+  
+def mse(y_test, y_pred):
+  """
+  y_test ve y_preds arasındaki ortalama karesel hatayı hesaplar
+  """
+  return tf.metrics.mean_squared_error(y_test,
+                                       y_pred)
+```
+
+### Bir Modeli Geliştirmek İçin Denemeler Yapmak
+
+Değerlendirme metriklerini ve modelinizin yaptığı tahminleri gördükten sonra, muhtemelen modeli geliştirmek isteyeceksiniz.
+
+Yine, bunu yapmanın birçok farklı yolu vardır, ancak bunlardan başlıca 3 tanesi şunlardır:
+
+- **Daha fazla veri elde edin**<br>
+Modeliniz için daha fazla örnek alın (kalıpları öğrenmek için daha fazla fırsat).
+- **Modelinizi büyütün (daha karmaşık bir model kullanın)**<br>
+Bu, her katmanda daha fazla katman veya daha fazla gizli birim şeklinde olabilir.
+- **Daha uzun süre eğitin**<br>
+Modelinize verilerdeki kalıpları bulma şansı verin.
+
+Veri kümemizi oluşturduğumuzdan, kolayca daha fazla veri üretebiliyorduk, ancak gerçek dünya veri kümeleriyle çalışırken durum her zaman böyle olmuyor.
+
+Şimdi 2 ve 3'ü kullanarak modelimizi nasıl geliştirebileceğimize bir göz atalım.
+
+Bunu yapmak için 3 model oluşturacağız ve sonuçlarını karşılaştıracağız:
+
+- `model_1` - orijinal modelle aynı, 1 katman, 100 epoch için eğitilmiş.
+- `model_2` - 100 epoch için eğitilmiş 2 katman.
+- `model_3` - 500 epoch için eğitilmiş 2 katman.
+
+`Model_1` 
+
+
+```python
+tf.random.set_seed(42)
+
+# Orijinal modeli çoğaltıyoruz
+model_1 = tf.keras.Sequential([
+  tf.keras.layers.Dense(1)
+])
+
+# modeli derleme
+model_1.compile(loss=tf.keras.losses.mae,
+                optimizer=tf.keras.optimizers.SGD(),
+                metrics=['mae'])
+
+# modeli fit etme
+model_1.fit(X_train, y_train, epochs=100, verbose=0)
+```
+
+```python
+# tahminleri model_1 için görselleştirelim
+y_preds_1 = model_1.predict(X_test)
+plot_predictions(predictions=y_preds_1)
+```
+> <img src="https://i.ibb.co/Vv70dWN/indir-2.png" />
+
+
+```python
+mae_1 = mae(y_test, y_preds_1.squeeze()).numpy()
+mse_1 = mse(y_test, y_preds_1.squeeze()).numpy()
+mae_1, mse_1
+```
+> (18.745327, 353.57336)
+
+
+
+```python
+
+```
 
 
 
 
+```python
 
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
 
 
 
