@@ -1,3 +1,5 @@
+# Evrişimsel Sinir Ağları (CNN)
+
 Evrişimli sinir ağları görüntülerle çok iyi çalıştığından, onlar hakkında daha fazla bilgi edinmek için bir görüntü veri kümesiyle başlayacağız. Çalışacağımız görseller, 101.001 görselden, 101 farklı kategoriden oluştan [Food-101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/) veri setindenden alınmıştır.
 
 Başlangıç için, kategorilerden sadece ikisini kullanacağız: pizza ve biftek.
