@@ -1,3 +1,5 @@
+# TensorFlow ile Sinir Ağı Sınıflandırılması
+
 Tüm derin sinir ağlarının içerdiği bazı temeller vardır:
 - Bir giriş katmanı
 - Bazı gizli katmanlar
