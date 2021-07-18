@@ -1,3 +1,5 @@
+## Tensorflow ile Transfer Learning - Özellik Çıkarımı (Feature extraction)
+
 ```python
 # GPU kullanıyoruz mu test edelim
 !nvidia-smi
