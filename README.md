@@ -7,7 +7,7 @@ Bu sayfada Türkçe olarak TensorFlow kullanarak derin öğrenme (deep learning)
 İçerik
 - 🟢 [TensorFlow ile Sinir Ağı Regresyonu](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/Tensorflow%20ile%20Sinir%20A%C4%9F%C4%B1%20Regresyonu)
 - 🟢 [TensorFlow ile Sinir Ağı Sınıflandırılması](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/2-TensorFlow%20ile%20Sinir%20A%C4%9F%C4%B1%20S%C4%B1n%C4%B1fland%C4%B1r%C4%B1lmas%C4%B1)
-- 🟡 [Evrişimsel Sinir Ağları (CNN) ](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/3-Evri%C5%9Fimsel%20Sinir%20A%C4%9Flar%C4%B1%20(CNN))
+- 🟢 [Evrişimsel Sinir Ağları (CNN) ](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/3-Evri%C5%9Fimsel%20Sinir%20A%C4%9Flar%C4%B1%20(CNN))
 - 🟡 [Transfer Learning - Özellik Çıkarımı (Feature extraction)](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction))
 - 🟡 [Transfer Learning - İnce Ayarlama (Fine Tuning)](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/5-Transfer%20Learning%20-%20%C4%B0nce%20Ayarlama%20(Fine%20Tuning))
 - 🟡 [Transfer Learning - Ölçeklendirme (Scaling)](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/6-Transfer%20Learning%20-%20%C3%96l%C3%A7eklendirme%20(Scaling))
