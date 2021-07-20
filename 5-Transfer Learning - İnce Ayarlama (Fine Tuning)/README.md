@@ -1,3 +1,5 @@
+# Tensorflow ile Transfer Learning - İnce Ayarlama (Fine Tuning)
+
 Önceki bölümde, Food Vision projemizde (daha az veriyle bile olsa) kendi modellerimizi oluşturmaktan çok daha iyi sonuçlar elde etmek için özellik çıkarma aktarımı öğreniminden nasıl yararlanabileceğimizi gördük.
 
 Şimdi başka bir transfer öğrenme türünü ele alacağız: ince ayar (Fine Tuning).
