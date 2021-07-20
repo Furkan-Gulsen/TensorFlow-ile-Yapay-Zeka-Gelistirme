@@ -1,3 +1,5 @@
+# Tensorflow ile Transfer Learning - Ölçeklendirme (Scaling)
+
 Önceki iki not defterinde (özellik çıkarma ve ince ayar) transfer learningin gücünü gördük.
 
 Artık daha küçük modelleme deneylerimizin işe yaradığını biliyoruz, daha fazla veriyle işleri bir adım öteye taşımanın zamanı geldi.
