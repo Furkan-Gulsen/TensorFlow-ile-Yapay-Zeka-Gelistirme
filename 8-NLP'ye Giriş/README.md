@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/mrdbourke/tensorflow-deep-learning/main/images/08-example-nlp-problems.png" /> 
+# NLP'ye Giriş
 
 Doğal dil işlemenin (NLP) temel amacı, doğal dilden bilgi elde etmektir. Doğal dil geniş bir terimdir ancak aşağıdakilerden herhangi birini kapsadığını düşünebilirsiniz:
 
@@ -879,8 +879,6 @@ sample_embed[0][0]
 🔑 Not: Önceki iki kavram (belirteçleştirme ve yerleştirme) birçok NLP görevinin temelidir. Bu nedenle, herhangi bir şeyden emin değilseniz, anlayışınıza daha fazla yardımcı olmak için kendi deneylerinizi araştırdığınızdan ve yürüttüğünüzden emin olun.
 
 ## Bir Metin Veri Kümesini Modelleme
-
-<img src="https://raw.githubusercontent.com/mrdbourke/tensorflow-deep-learning/main/images/08-inputs-and-outputs-with-shapes-and-models-were-going-to-build.png" />
 
 Girdilerinizi ve çıktılarınızı hazırladıktan sonra, aradaki boşluğu kapatmak için hangi makine öğrenimi modelinin oluşturulacağını bulmak meselesidir.
 
