@@ -12,7 +12,7 @@ Bu sayfada Türkçe olarak TensorFlow kullanarak derin öğrenme (deep learning)
 - 🟢 [Transfer Learning - İnce Ayarlama (Fine Tuning)](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/5-Transfer%20Learning%20-%20%C4%B0nce%20Ayarlama%20(Fine%20Tuning))
 - 🟢 [Transfer Learning - Ölçeklendirme (Scaling)](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/6-Transfer%20Learning%20-%20%C3%96l%C3%A7eklendirme%20(Scaling))
 - 🟡 [Food Vision Projesi](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/7-Food%20Vision%20Projesi)
-- 🔴 [NLP'ye Giriş](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/8-NLP'ye%20Giri%C5%9F)
+-🟢 [NLP'ye Giriş](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/8-NLP'ye%20Giri%C5%9F)
 - 🔴 [NLP SkimLit Projesi](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/9-NLP%20SkimLit%20Projesi)
 - 🔴 [Zaman Serisi Tahmini](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/tree/main/10-Zaman%20Serisi%20Tahmini)
 
