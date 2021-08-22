@@ -9,7 +9,7 @@ Metin ve konuşma şemsiyesi altında yapmak isteyebileceğiniz birçok farklı 
 
 Müşteri geri bildirim şikayetlerini analiz etmeye çalışıyorsanız, bunların işletmenizin hangi bölümü için olduğunu keşfetmek isteyebilirsiniz.
 
-> 🔑 Not: Bu tür verilerin her ikisine de genellikle diziler denir (bir cümle, bir sözcük dizisidir). Bu nedenle, NLP problemlerinde karşılaşacağınız yaygın bir terime **seq2seq** denir, başka bir deyişle, bir dizideki bilgiyi başka bir dizi oluşturmak için bulmak (örneğin, bir konuşma komutunu metin tabanlı adımlar dizisine dönüştürmek).
+> 🔑 Not: Bu tür verilerin her ikisine de genellikle diziler denir (bir cümle, bir sözcük dizisidir). Bu nedenle, NLP problemlerinde karşılaşacağınız yaygın bir terime **seq2seq** denir, başka bir deyişle, bir dizideki bilgiyi başka bir dizi oluşturmak için bulmaktır (örneğin, bir konuşma komutunu metin tabanlı adımlar dizisine dönüştürmek).
 
 TensorFlow'da NLP ile pratik yapmak için daha önce kullandığımız adımları bu sefer metin verileriyle uygulayacağız:
 
@@ -160,16 +160,16 @@ Jetstar and Virgin forced to cancel Bali flights again because of ash from Mount
 unzip_data("nlp_getting_started.zip")
 ```
 
-    --2021-08-01 15:36:28--  https://storage.googleapis.com/ztm_tf_course/nlp_getting_started.zip
-    Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.101.128, 142.250.141.128, 142.251.2.128, ...
-    Connecting to storage.googleapis.com (storage.googleapis.com)|142.250.101.128|:443... connected.
+    --2021-08-22 07:09:20--  https://storage.googleapis.com/ztm_tf_course/nlp_getting_started.zip
+    Resolving storage.googleapis.com (storage.googleapis.com)... 74.125.204.128, 64.233.188.128, 64.233.189.128, ...
+    Connecting to storage.googleapis.com (storage.googleapis.com)|74.125.204.128|:443... connected.
     HTTP request sent, awaiting response... 200 OK
     Length: 607343 (593K) [application/zip]
     Saving to: ‘nlp_getting_started.zip’
     
-    nlp_getting_started 100%[===================>] 593.11K  --.-KB/s    in 0.004s  
+    nlp_getting_started 100%[===================>] 593.11K  --.-KB/s    in 0.007s  
     
-    2021-08-01 15:36:28 (146 MB/s) - ‘nlp_getting_started.zip’ saved [607343/607343]
+    2021-08-22 07:09:20 (87.6 MB/s) - ‘nlp_getting_started.zip’ saved [607343/607343]
     
     
 
@@ -186,13 +186,13 @@ Gerçek ve gerçek olmayan felaket Tweet örneklerinin test edilmesi için örne
 
 ## Bir Metin Veri Kümesini Görselleştirme
 
-Çalışmak için yeni bir veri kümesi edindikten sonra, önce ne yapmalısınız? Keşfetmek mi? Kontrol et? Doğrula? Onunla bir olmak mı? Hepsi doğru :)
+Çalışmak için yeni bir veri kümesi edindikten sonra, önce ne yapmalısınız? Keşfetmek mi? Kontrol etmek mi? Doğrulak mı? Hepsi doğru :)
 
 Sloganı hatırlayın: görselleştirin, görselleştirin, görselleştirin.
 
-Şu anda metin veri örneklerimiz .csv dosyaları biçimindedir. Onları görsel hale getirmenin kolay bir yolu için onları pandas DataFrame'e çevirelim.
+Şu anda metin veri örneklerimiz `.csv` dosyaları biçimindedir. Onları görsel hale getirmenin kolay bir yolu için onları pandas DataFrame'e çevirelim.
 
-> 📖 Okuma: Birçok farklı formatta metin veri setleriyle karşılaşabilirsiniz. CSV dosyalarının (üzerinde çalıştığımız şey) yanı sıra, muhtemelen .txt dosyaları ve .json dosyalarıyla da karşılaşacaksınız. Bu tür dosyalarla çalışmak için RealPython'un aşağıdaki iki makalesini okumanızı tavsiye ederim:
+> 📖 Okuma: Birçok farklı formatta metin veri setleriyle karşılaşabilirsiniz. CSV dosyalarının (üzerinde çalıştığımız şey) yanı sıra, muhtemelen `.txt` dosyaları ve `.json` dosyalarıyla da karşılaşacaksınız. Bu tür dosyalarla çalışmak için RealPython'un aşağıdaki iki makalesini okumanızı tavsiye ederim:
 
 - [Python'da Dosyalar Nasıl Okunur ve Yazılır](https://realpython.com/read-write-files-python/)
 - [Python'da JSON Verileriyle Çalışmak](https://realpython.com/python-json/)
@@ -500,36 +500,31 @@ for row in train_df_shuffled[["text", "target"]][random_index:random_index+5].it
 
     Target: 0 (not real disaster)
     Text:
-    catastrophic-fallen-angel: reveillertm: macabrelolita: I was supposed to write Û÷amino acidsÛª and I nearly... http://t.co/dIoBzGHFju
+    @QuotesTTG Save the panicking for when you get to Helios. ;)
     
     ---
     
     Target: 0 (not real disaster)
     Text:
-    'if you can't summon the flames directly from hell store bought is fine'-me 
-    mom-*dies*
+    Patience Jonathan On The Move To Hijack APC In BayelsaåÊState http://t.co/Vh8QtbyPZt
     
     ---
     
     Target: 0 (not real disaster)
     Text:
-    Back in 02 to 03 would never said that 50 would have ended ja like obliteration
+    Ali you flew planes and ran into burning buildings why are you making soup for that man child?! #BooRadleyVanCullen
     
     ---
     
     Target: 0 (not real disaster)
     Text:
-    How can we help save a beautiful town in Ontario from destruction by a power plant developer?
-    http://t.co/hlD5xLYwBn
+    @ACOUSTICMALOLEY no he was blazing it
     
     ---
     
-    Target: 0 (not real disaster)
+    Target: 1 (real disaster)
     Text:
-    that exploded &amp; brought about the
-    beginning of universe matches what's
-    mentioned in the versethe heaven and Earth
-    (thus the universe)
+    National Briefing | West: California: Spring Oil Spill Estimate Grows: Documents released on Wednesday d... http://t.co/hTxAi05y7B (NYT)
     
     ---
     
@@ -549,16 +544,16 @@ Eğitim veri setimizi bölmek ve bir doğrulama veri seti oluşturmak için Scik
 ```python
 from sklearn.model_selection import train_test_split
 
-# Use train_test_split to split training data into training and validation sets
+# Eğitim verilerini eğitim ve doğrulama kümelerine bölmek için train_test_split kullan
 train_sentences, val_sentences, train_labels, val_labels = train_test_split(train_df_shuffled["text"].to_numpy(),
                                                                             train_df_shuffled["target"].to_numpy(),
-                                                                            test_size=0.1, # dedicate 10% of samples to validation set
-                                                                            random_state=42) # random state for reproducibility
+                                                                            test_size=0.1, # örneklerin %10'unu doğrulama setine ayır
+                                                                            random_state=42) # tekrarlanabilirlik için rastgele durum
 ```
 
 
 ```python
-# Check the lengths
+# Uzunlukları kontrol edin
 len(train_sentences), len(train_labels), len(val_sentences), len(val_labels)
 ```
 
@@ -571,7 +566,7 @@ len(train_sentences), len(train_labels), len(val_sentences), len(val_labels)
 
 
 ```python
-# View the first 10 training sentences and their labels
+# İlk 10 eğitim cümlesini ve etiketlerini görüntüleyin
 train_sentences[:10], train_labels[:10]
 ```
 
@@ -652,7 +647,7 @@ text_vectorizer = TextVectorization(max_tokens=None,
                                     ngrams=None, 
                                     output_mode="int",
                                     output_sequence_length=None,
-                                    pad_to_max_tokens=True)
+                                    pad_to_max_tokens=False)
 ```
 
 Bir TextVectorization nesnesini varsayılan ayarlarla başlattık, ancak bunu kendi kullanım durumumuz için biraz özelleştirelim. Özellikle `max_tokens` ve `output_sequence_length` için değerler belirleyelim.
@@ -726,7 +721,7 @@ text_vectorizer([random_sentence])
 ```
 
     Original text:
-    U.S. Forest Service firefighter David Ruhl 38 died in the 'Frog Fire' in the Modoc National Forest. He had been temporarily reassigned      
+    Quirk Injury Law's News is out! http://t.co/HxVIhDuShP Stories via @dantmatrafajlo      
     
     Vectorized version:
     
@@ -735,8 +730,8 @@ text_vectorizer([random_sentence])
 
 
     <tf.Tensor: shape=(1, 15), dtype=int64, numpy=
-    array([[  69,  188,  386, 1674, 1691, 8927,    1,  579,    4,    2,    1,
-              42,    4,    2,    1]])>
+    array([[9416,  345, 2068,   58,    9,   36,    1, 1172,   49,    1,    0,
+               0,    0,    0,    0]])>
 
 
 
@@ -792,7 +787,7 @@ embedding
 
 
 
-    <tensorflow.python.keras.layers.embeddings.Embedding at 0x7f0195623e90>
+    <keras.layers.embeddings.Embedding at 0x7f5bf062d050>
 
 
 
@@ -811,7 +806,7 @@ sample_embed
 ```
 
     Original text:
-    Army names 10th Mountain units for Iraq Afghanistan deployments (Deeds) http://t.co/N6ZfLXIGvr      
+    Anyone wanna come over and watch Twister with me? #toosoon :-)      
     
     Embedded version:
     
@@ -820,19 +815,20 @@ sample_embed
 
 
     <tf.Tensor: shape=(1, 15, 128), dtype=float32, numpy=
-    array([[[-0.00916288, -0.02020576,  0.01051251, ...,  0.03743795,
-             -0.03013742, -0.02531119],
-            [ 0.04532088,  0.02299361,  0.01219423, ..., -0.00065058,
-             -0.04569644, -0.00531676],
-            [ 0.03858428, -0.04181042, -0.00797512, ..., -0.00329729,
-              0.03181828,  0.04978368],
+    array([[[-2.67661568e-02,  3.09980996e-02,  9.19399410e-03, ...,
+             -1.61751285e-02,  2.21572071e-03, -7.00148195e-03],
+            [-4.41038385e-02, -4.84013557e-03,  2.72500776e-02, ...,
+             -1.73950568e-02, -2.18516830e-02, -9.85272974e-03],
+            [-1.61503777e-02, -3.82886529e-02,  2.60415785e-02, ...,
+             -3.55404019e-02,  8.02986324e-05, -7.18279928e-03],
             ...,
-            [ 0.00141954, -0.01528921,  0.04304833, ..., -0.01062925,
-              0.01877917, -0.00428162],
-            [ 0.00141954, -0.01528921,  0.04304833, ..., -0.01062925,
-              0.01877917, -0.00428162],
-            [ 0.00141954, -0.01528921,  0.04304833, ..., -0.01062925,
-              0.01877917, -0.00428162]]], dtype=float32)>
+            [-3.36676128e-02, -6.04265928e-03, -5.23805618e-04, ...,
+             -4.41053882e-02,  1.10260025e-02,  1.55389644e-02],
+            [-3.36676128e-02, -6.04265928e-03, -5.23805618e-04, ...,
+             -4.41053882e-02,  1.10260025e-02,  1.55389644e-02],
+            [-3.36676128e-02, -6.04265928e-03, -5.23805618e-04, ...,
+             -4.41053882e-02,  1.10260025e-02,  1.55389644e-02]]],
+          dtype=float32)>
 
 
 
@@ -847,36 +843,43 @@ sample_embed[0][0]
 
 
     <tf.Tensor: shape=(128,), dtype=float32, numpy=
-    array([-0.00916288, -0.02020576,  0.01051251,  0.01018524, -0.04450629,
-            0.01370009,  0.01044489, -0.01513488,  0.02855153,  0.01395481,
-           -0.04568119, -0.00575911,  0.01966823, -0.04059171,  0.0413805 ,
-            0.03656509, -0.02095454, -0.04788685, -0.02226297,  0.04037564,
-           -0.03191366,  0.03968054, -0.00194321,  0.02069068,  0.0350836 ,
-            0.02134537,  0.01469893, -0.02956121, -0.02796942, -0.03294774,
-           -0.04563676, -0.03714399,  0.01066669,  0.03298349, -0.00739118,
-            0.04917097,  0.01289347,  0.03903702,  0.02170446,  0.02120433,
-            0.01201127, -0.01070263,  0.0261583 ,  0.03698863,  0.01283456,
-           -0.01727299, -0.00012108, -0.0367375 , -0.01463311, -0.04898279,
-           -0.00069792, -0.00546343,  0.02455739,  0.03335546, -0.03360651,
-           -0.03045735,  0.00717491, -0.03701036, -0.01086336,  0.03041612,
-           -0.01906449,  0.02496426, -0.03597245, -0.01636804, -0.00832563,
-            0.03531268,  0.00391679,  0.00113746,  0.02531954, -0.04372667,
-            0.01609613, -0.04192771,  0.02265961,  0.01025601,  0.04619921,
-           -0.00561135,  0.03279671, -0.04784563,  0.02746815,  0.04743092,
-           -0.04517381, -0.03620393,  0.03094572,  0.0469407 , -0.02911168,
-            0.02919107,  0.0493275 , -0.0354128 , -0.00053966, -0.01730473,
-           -0.03506305,  0.03537161,  0.00785895,  0.03800782,  0.00921674,
-            0.03885179, -0.028087  ,  0.01270168,  0.04836855, -0.04588796,
-            0.01885916,  0.0454084 ,  0.00161005, -0.04547844,  0.0299739 ,
-            0.01862308, -0.00661734, -0.03526626, -0.00043763, -0.02819604,
-           -0.03603878, -0.03872228,  0.00732009, -0.01773995,  0.04899145,
-           -0.00022688, -0.01785977, -0.04193083,  0.00570047,  0.0428207 ,
-           -0.03000025,  0.0157868 ,  0.01703984, -0.02578779,  0.03508879,
-            0.03743795, -0.03013742, -0.02531119], dtype=float32)>
+    array([-2.6766157e-02,  3.0998100e-02,  9.1939941e-03,  1.1298049e-02,
+            1.9281853e-02,  1.2828600e-02,  2.7620319e-02, -4.6756484e-02,
+           -4.7940601e-02, -9.4258562e-03,  8.8882931e-03,  9.9281296e-03,
+           -1.1045527e-02,  2.3107305e-03,  1.1442937e-02, -2.6214374e-02,
+            1.9464921e-02,  9.2443340e-03, -1.1554696e-02,  1.6496528e-02,
+            1.1290133e-02,  1.7679345e-02,  4.1412916e-02,  8.3859339e-03,
+           -2.3221433e-02, -1.5267409e-02,  6.1252825e-03, -2.3301685e-02,
+            8.3223693e-03,  3.4590412e-02, -1.8654786e-02,  2.2479955e-02,
+            2.3416769e-02, -1.4507163e-02, -3.3194818e-02,  1.5210751e-02,
+            1.2733910e-02, -4.2662036e-02, -3.1142402e-02,  2.9466037e-02,
+           -1.3123263e-02,  2.6843850e-02,  2.1498416e-02,  4.5063887e-02,
+           -3.6920715e-02,  1.0851800e-02,  8.6697713e-03,  4.7077391e-02,
+            3.5928216e-02, -4.7313895e-02,  1.0041595e-03,  1.1565756e-02,
+           -6.1505325e-03,  3.5577092e-02,  3.0785192e-02, -1.0508526e-02,
+            2.8408121e-02,  2.3087058e-02,  4.5386180e-03,  5.6251884e-03,
+            1.3862085e-02,  2.7922798e-02,  3.3377770e-02,  4.2726230e-02,
+           -9.0640187e-03,  5.7292096e-03, -1.4854670e-02,  1.6860548e-02,
+            2.0201530e-02, -4.1249715e-02, -2.0793175e-02,  3.2375220e-02,
+           -3.9839089e-02, -4.9911141e-03, -7.8412518e-03,  2.9475693e-02,
+           -3.2879878e-02,  2.2757497e-02,  9.1821551e-03, -3.9630160e-03,
+            1.7598383e-03,  6.4185746e-03,  3.9488077e-07,  3.5669398e-02,
+            2.0191576e-02,  4.4047508e-02,  2.1852169e-02, -4.9949538e-02,
+            2.9918279e-02,  1.1461068e-02, -4.4214189e-02, -4.5909584e-02,
+           -1.4579408e-03, -3.6948562e-02, -3.2227956e-02,  2.8313946e-02,
+           -9.3356520e-04,  7.1534142e-03,  1.9067053e-02, -2.5455356e-02,
+           -1.3002217e-02,  3.1422488e-03, -4.7948360e-02, -2.8451920e-02,
+           -4.4162154e-02, -6.4193085e-04,  2.4962079e-02, -3.2402515e-02,
+            6.5453053e-03, -6.9365017e-03,  1.5323464e-02,  1.9762184e-02,
+            3.9757859e-02,  4.8979964e-02,  4.1511167e-02, -2.3521185e-03,
+           -4.2080723e-02, -1.8117238e-02,  4.2290125e-02, -3.8343213e-02,
+            2.6690889e-02,  1.0297049e-02,  3.5892416e-02, -2.7472233e-02,
+           -2.4868632e-02, -1.6175129e-02,  2.2157207e-03, -7.0014820e-03],
+          dtype=float32)>
 
 
 
-🔑 Not: Önceki iki kavram (belirteçleştirme ve yerleştirme) birçok NLP görevinin temelidir. Bu nedenle, herhangi bir şeyden emin değilseniz, anlayışınıza daha fazla yardımcı olmak için kendi deneylerinizi araştırdığınızdan ve yürüttüğünüzden emin olun.
+🔑 Not: Önceki iki kavram (tokenization ve embedding) birçok NLP görevinin temelidir. Bu nedenle, herhangi bir şeyden emin değilseniz, anlayışınıza daha fazla yardımcı olmak için kendi deneylerinizi araştırdığınızdan ve yürüttüğünüzden emin olun.
 
 ## Bir Metin Veri Kümesini Modelleme
 
@@ -896,7 +899,7 @@ Daha spesifik olarak, aşağıdakileri inşa edeceğiz:
 - Model 3: GRU modeli
 - Model 4: Çift Yönlü-LSTM modeli
 - Model 5: 1B Evrişimli Sinir Ağı
-- Model 6: TensorFlow Hub Önceden Eğitilmiş Özellik Çıkarıcı
+- Model 6: TensorFlow Hub Önceden Eğitilmiş Özellik Çıkarıcı (feature extraction)
 - Model 7: Eğitim verilerinin %10 ile model 6'nın aynısı 
 
 Model 0, diğer daha derin modellerin birbirini yenmesini bekleyeceğimiz bir temel elde etmek için en basit olanıdır.
@@ -1029,7 +1032,7 @@ Metnimizi ve etiketlerimizi girdi olarak alacak, metni simgeleştirecek, bir gö
 
 
 ```python
-# Create directory to save TensorBoard logs
+# TensorBoard günlüklerini kaydetmek için dizin oluşturun
 SAVE_DIR = "model_logs"
 ```
 
@@ -1064,7 +1067,7 @@ Daha sonra (isteğe bağlı olarak) çıktı katmanına ilettiğimiz tensörün 
 
 Son olarak, havuzlama katmanının çıktısını sigmoid aktivasyonu ile yoğun bir katmana geçiriyoruz (sorunumuz ikili sınıflandırma olduğu için sigmoid kullanıyoruz).
 
-Modelimizi verilerle fit etmeden önce onu derlememiz gerekiyor. İkili sınıflandırma ile çalıştığımız için, kayıp fonksiyonumuz ve Adam optimize edici olarak "binary_crossentropy" kullanacağız.
+Modelimizi verilerle fit etmeden önce onu derlememiz gerekiyor. İkili sınıflandırma ile çalıştığımız için, kayıp fonksiyonumuz ve Adam optimize edici olarak "`binary_crossentropy`" kullanacağız.
 
 
 ```python
@@ -1111,17 +1114,17 @@ model_1_history = model_1.fit(
                                            experiment_name="simple_dense_model")])
 ```
 
-    Saving TensorBoard log files to: model_logs/simple_dense_model/20210801-153638
+    Saving TensorBoard log files to: model_logs/simple_dense_model/20210822-070929
     Epoch 1/5
-    215/215 [==============================] - 7s 17ms/step - loss: 0.6132 - accuracy: 0.6850 - val_loss: 0.5371 - val_accuracy: 0.7559
+    215/215 [==============================] - 5s 9ms/step - loss: 0.6113 - accuracy: 0.6904 - val_loss: 0.5373 - val_accuracy: 0.7559
     Epoch 2/5
-    215/215 [==============================] - 3s 15ms/step - loss: 0.4427 - accuracy: 0.8168 - val_loss: 0.4697 - val_accuracy: 0.7861
+    215/215 [==============================] - 1s 6ms/step - loss: 0.4417 - accuracy: 0.8187 - val_loss: 0.4700 - val_accuracy: 0.7887
     Epoch 3/5
-    215/215 [==============================] - 3s 15ms/step - loss: 0.3479 - accuracy: 0.8606 - val_loss: 0.4582 - val_accuracy: 0.7913
+    215/215 [==============================] - 1s 6ms/step - loss: 0.3467 - accuracy: 0.8619 - val_loss: 0.4552 - val_accuracy: 0.7979
     Epoch 4/5
-    215/215 [==============================] - 3s 15ms/step - loss: 0.2851 - accuracy: 0.8911 - val_loss: 0.4611 - val_accuracy: 0.7874
+    215/215 [==============================] - 1s 6ms/step - loss: 0.2842 - accuracy: 0.8914 - val_loss: 0.4623 - val_accuracy: 0.7913
     Epoch 5/5
-    215/215 [==============================] - 3s 14ms/step - loss: 0.2387 - accuracy: 0.9107 - val_loss: 0.4775 - val_accuracy: 0.7822
+    215/215 [==============================] - 1s 6ms/step - loss: 0.2373 - accuracy: 0.9113 - val_loss: 0.4754 - val_accuracy: 0.7848
     
 
 Güzel! Bu kadar basit bir model kullandığımız için her epoch çok hızlı işliyor. Modelimizin doğrulama setindeki performansını kontrol edelim.
@@ -1131,13 +1134,13 @@ Güzel! Bu kadar basit bir model kullandığımız için her epoch çok hızlı 
 model_1.evaluate(val_sentences, val_labels)
 ```
 
-    24/24 [==============================] - 0s 3ms/step - loss: 0.4775 - accuracy: 0.7822
+    24/24 [==============================] - 0s 4ms/step - loss: 0.4754 - accuracy: 0.7848
     
 
 
 
 
-    [0.47749000787734985, 0.7821522355079651]
+    [0.4753652513027191, 0.7847769260406494]
 
 
 
@@ -1167,16 +1170,16 @@ model_1_pred_probs[:10]
 
 
 
-    array([[0.38384166],
-           [0.72483045],
-           [0.997633  ],
-           [0.11788377],
-           [0.10144898],
-           [0.9263861 ],
-           [0.92003554],
-           [0.99293476],
-           [0.96582043],
-           [0.26976743]], dtype=float32)
+    array([[0.39653158],
+           [0.7810238 ],
+           [0.9976156 ],
+           [0.10114352],
+           [0.10857761],
+           [0.9328917 ],
+           [0.9154491 ],
+           [0.9949896 ],
+           [0.9680576 ],
+           [0.20620456]], dtype=float32)
 
 
 
@@ -1213,10 +1216,10 @@ model_1_results
 
 
 
-    {'accuracy': 78.21522309711287,
-     'f1': 0.779088324447517,
-     'precision': 0.7868451603977311,
-     'recall': 0.7821522309711286}
+    {'accuracy': 78.4776902887139,
+     'f1': 0.7818959205825942,
+     'precision': 0.789165199286798,
+     'recall': 0.7847769028871391}
 
 
 
@@ -1247,10 +1250,10 @@ compare_baseline_to_new_results(baseline_results=baseline_results,
                                 new_model_results=model_1_results)
 ```
 
-    Baseline accuracy: 79.27, New accuracy: 78.22, Difference: -1.05
+    Baseline accuracy: 79.27, New accuracy: 78.48, Difference: -0.79
     Baseline precision: 0.81, New precision: 0.79, Difference: -0.02
     Baseline recall: 0.79, New recall: 0.78, Difference: -0.01
-    Baseline f1: 0.79, New f1: 0.78, Difference: -0.01
+    Baseline f1: 0.79, New f1: 0.78, Difference: -0.00
     
 
 # Tekrarlayan Sinir Ağları (RNN'ler)
@@ -1269,6 +1272,7 @@ Basit bir örnek için iki cümle alın:
 
 - Geçen hafta büyük deprem oldu, değil mi?
 - Geçen hafta büyük bir deprem olmadı.
+
 Her ikisi de tamamen aynı kelimeleri içerir, ancak farklı anlamlara sahiptir. Sözcüklerin sırası anlamı belirler (noktalama işaretlerinin de anlamı dikte ettiği tartışılabilir, ancak basitlik adına, kelimelere odaklanalım).
 
 Tekrarlayan sinir ağları, bir dizi dizi tabanlı problem için kullanılabilir:
@@ -1305,7 +1309,7 @@ TensorFlow'da LSTM hücresinin (LSTM hücresi ve LSTM katmanı genellikle birbir
 Modelimiz `model_1` ile çok benzer bir yapı alacak:
 
 ```
-Girdi (metin) -> Simgeleştir -> Gömme -> Katmanlar -> Çıktı (etiket olasılığı)
+Input (metin) -> Tokenization -> Embedding -> Layers -> Output (etiket olasılığı)
 ```
 
 Temel fark, gömme ve çıktımız arasına bir LSTM katmanı ekleyeceğimiz olacaktır.
@@ -1383,17 +1387,17 @@ model_2_history = model_2.fit(
     callbacks=[create_tensorboard_callback(SAVE_DIR, "LSTM")])
 ```
 
-    Saving TensorBoard log files to: model_logs/LSTM/20210801-153658
+    Saving TensorBoard log files to: model_logs/LSTM/20210822-070941
     Epoch 1/5
-    215/215 [==============================] - 10s 23ms/step - loss: 0.2145 - accuracy: 0.9234 - val_loss: 0.5332 - val_accuracy: 0.7861
+    215/215 [==============================] - 7s 14ms/step - loss: 0.2219 - accuracy: 0.9237 - val_loss: 0.5674 - val_accuracy: 0.7795
     Epoch 2/5
-    215/215 [==============================] - 4s 17ms/step - loss: 0.1564 - accuracy: 0.9418 - val_loss: 0.5328 - val_accuracy: 0.7835
+    215/215 [==============================] - 2s 10ms/step - loss: 0.1562 - accuracy: 0.9429 - val_loss: 0.5965 - val_accuracy: 0.7730
     Epoch 3/5
-    215/215 [==============================] - 3s 16ms/step - loss: 0.1265 - accuracy: 0.9527 - val_loss: 0.6293 - val_accuracy: 0.7887
+    215/215 [==============================] - 2s 10ms/step - loss: 0.1307 - accuracy: 0.9510 - val_loss: 0.7095 - val_accuracy: 0.7769
     Epoch 4/5
-    215/215 [==============================] - 4s 17ms/step - loss: 0.1035 - accuracy: 0.9575 - val_loss: 0.7793 - val_accuracy: 0.7848
+    215/215 [==============================] - 2s 10ms/step - loss: 0.1053 - accuracy: 0.9606 - val_loss: 0.7949 - val_accuracy: 0.7874
     Epoch 5/5
-    215/215 [==============================] - 4s 17ms/step - loss: 0.0826 - accuracy: 0.9685 - val_loss: 1.1029 - val_accuracy: 0.7782
+    215/215 [==============================] - 2s 10ms/step - loss: 0.0886 - accuracy: 0.9673 - val_loss: 0.8062 - val_accuracy: 0.7808
     
 
 Güzel! LSTM hücrelerini kullanan ilk eğitimli RNN modelimize sahibiz. Onunla bazı tahminler yapalım. Son katmandaki sigmoid aktivasyon fonksiyonu nedeniyle daha önce olduğu gibi aynı şey olacak, modelimizde `predict()` yöntemini çağırdığımızda sınıflardan ziyade tahmin olasılıklarını döndürecek.
@@ -1407,16 +1411,16 @@ model_2_pred_probs.shape, model_2_pred_probs[:10]
 
 
 
-    ((762, 1), array([[8.7842321e-01],
-            [8.5219616e-01],
-            [9.9986124e-01],
-            [5.6012526e-02],
-            [4.8184194e-04],
-            [9.9966288e-01],
-            [9.8856550e-01],
-            [9.9991667e-01],
-            [9.9985754e-01],
-            [8.9258754e-01]], dtype=float32))
+    ((762, 1), array([[0.1147354 ],
+            [0.94750935],
+            [0.9996575 ],
+            [0.11396935],
+            [0.00261294],
+            [0.99850935],
+            [0.95742464],
+            [0.9997907 ],
+            [0.9996567 ],
+            [0.39139414]], dtype=float32))
 
 
 
@@ -1431,7 +1435,7 @@ model_2_preds[:10]
 
 
 
-    <tf.Tensor: shape=(10,), dtype=float32, numpy=array([1., 1., 1., 0., 0., 1., 1., 1., 1., 1.], dtype=float32)>
+    <tf.Tensor: shape=(10,), dtype=float32, numpy=array([0., 1., 1., 0., 0., 1., 1., 1., 1., 0.], dtype=float32)>
 
 
 
@@ -1447,10 +1451,10 @@ model_2_results
 
 
 
-    {'accuracy': 77.82152230971128,
-     'f1': 0.7782879110458442,
-     'precision': 0.7783847812585096,
-     'recall': 0.7782152230971129}
+    {'accuracy': 78.08398950131233,
+     'f1': 0.7794817733933848,
+     'precision': 0.781486692298758,
+     'recall': 0.7808398950131233}
 
 
 
@@ -1459,7 +1463,7 @@ model_2_results
 compare_baseline_to_new_results(baseline_results, model_2_results)
 ```
 
-    Baseline accuracy: 79.27, New accuracy: 77.82, Difference: -1.44
+    Baseline accuracy: 79.27, New accuracy: 78.08, Difference: -1.18
     Baseline precision: 0.81, New precision: 0.78, Difference: -0.03
     Baseline recall: 0.79, New recall: 0.78, Difference: -0.01
     Baseline f1: 0.79, New f1: 0.78, Difference: -0.01
@@ -1474,7 +1478,7 @@ GRU hücresini TensorFlow'da kullanmak için [`tensorflow.keras.layers.GRU()`](h
 GRU destekli modelin mimarisi, kullandığımız yapıyla aynı olacak:
 
 ```
-Girdi (metin) -> Simgeleştir -> Gömme -> Katmanlar -> Çıktı (etiket olasılığı)
+Input (metin) -> Tokenization -> Embedding -> Layers -> Output (etiket olasılığı)
 ```
 Yine, tek fark, gömme ve çıktı arasında kullandığımız katman(lar) olacaktır.
 
@@ -1535,17 +1539,17 @@ model_3_history = model_3.fit(
     callbacks=[create_tensorboard_callback(SAVE_DIR, "GRU")])
 ```
 
-    Saving TensorBoard log files to: model_logs/GRU/20210801-153742
+    Saving TensorBoard log files to: model_logs/GRU/20210822-070958
     Epoch 1/5
-    215/215 [==============================] - 6s 21ms/step - loss: 0.1627 - accuracy: 0.9334 - val_loss: 0.7266 - val_accuracy: 0.7861
+    215/215 [==============================] - 5s 14ms/step - loss: 0.1533 - accuracy: 0.9399 - val_loss: 0.7544 - val_accuracy: 0.7690
     Epoch 2/5
-    215/215 [==============================] - 3s 16ms/step - loss: 0.0824 - accuracy: 0.9702 - val_loss: 0.9151 - val_accuracy: 0.7848
+    215/215 [==============================] - 2s 9ms/step - loss: 0.0892 - accuracy: 0.9677 - val_loss: 0.6545 - val_accuracy: 0.7808
     Epoch 3/5
-    215/215 [==============================] - 4s 17ms/step - loss: 0.0749 - accuracy: 0.9721 - val_loss: 1.0135 - val_accuracy: 0.7782
+    215/215 [==============================] - 2s 9ms/step - loss: 0.0744 - accuracy: 0.9720 - val_loss: 0.8501 - val_accuracy: 0.7743
     Epoch 4/5
-    215/215 [==============================] - 4s 17ms/step - loss: 0.0609 - accuracy: 0.9766 - val_loss: 1.2912 - val_accuracy: 0.7769
+    215/215 [==============================] - 2s 9ms/step - loss: 0.0622 - accuracy: 0.9740 - val_loss: 0.9582 - val_accuracy: 0.7743
     Epoch 5/5
-    215/215 [==============================] - 4s 16ms/step - loss: 0.0507 - accuracy: 0.9783 - val_loss: 1.2469 - val_accuracy: 0.7835
+    215/215 [==============================] - 2s 10ms/step - loss: 0.0565 - accuracy: 0.9768 - val_loss: 1.2119 - val_accuracy: 0.7717
     
 
 TensorFlow'daki GRU hücresinin optimize edilmiş varsayılan ayarları nedeniyle, eğitim hiç uzun sürmez. Doğrulama örnekleri üzerinde bazı tahminlerde bulunma zamanı.
@@ -1559,16 +1563,16 @@ model_3_pred_probs.shape, model_3_pred_probs[:10]
 
 
 
-    ((762, 1), array([[4.4600765e-04],
-            [7.4906093e-01],
-            [9.9987340e-01],
-            [1.6632774e-01],
-            [8.7559012e-05],
-            [9.9979585e-01],
-            [7.3085886e-01],
-            [9.9996459e-01],
-            [9.9990916e-01],
-            [9.7049451e-01]], dtype=float32))
+    ((762, 1), array([[1.6326897e-02],
+            [8.8803720e-01],
+            [9.9982280e-01],
+            [4.5834299e-02],
+            [1.4948420e-04],
+            [9.9980944e-01],
+            [9.7764552e-01],
+            [9.9996221e-01],
+            [9.9989629e-01],
+            [9.8516256e-01]], dtype=float32))
 
 
 
@@ -1599,10 +1603,10 @@ model_3_results
 
 
 
-    {'accuracy': 78.34645669291339,
-     'f1': 0.7814394387142286,
-     'precision': 0.7855568462558434,
-     'recall': 0.7834645669291339}
+    {'accuracy': 77.16535433070865,
+     'f1': 0.7712815503325242,
+     'precision': 0.7712950933950157,
+     'recall': 0.7716535433070866}
 
 
 
@@ -1613,11 +1617,17 @@ Son olarak, GRU modelimizin sonuçlarını taban çizgimizle karşılaştırabil
 compare_baseline_to_new_results(baseline_results, model_3_results)
 ```
 
-    Baseline accuracy: 79.27, New accuracy: 78.35, Difference: -0.92
-    Baseline precision: 0.81, New precision: 0.79, Difference: -0.03
-    Baseline recall: 0.79, New recall: 0.78, Difference: -0.01
-    Baseline f1: 0.79, New f1: 0.78, Difference: -0.00
+    Baseline accuracy: 79.27, New accuracy: 77.17, Difference: -2.10
+    Baseline precision: 0.81, New precision: 0.77, Difference: -0.04
+    Baseline recall: 0.79, New recall: 0.77, Difference: -0.02
+    Baseline f1: 0.79, New f1: 0.77, Difference: -0.01
     
+
+GRU ile LSTM arasında ki farkı, [StackExchange'de bulunan yorumda](https://datascience.stackexchange.com/questions/14581/when-to-use-gru-over-lstm?newreg=64d5f02c755b43d2b855e03bb715e165) çok güzel özetlemiş:
+* GRU, LSTM birimi gibi bilgi akışını kontrol eder, ancak bir bellek birimi kullanmak zorunda kalmadan. Herhangi bir kontrol olmaksızın tam gizli içeriği ortaya çıkarır.
+* GRU nispeten yeni ve benim açımdan performans LSTM ile eşit, ancak hesaplama açısından daha verimli (belirtildiği gibi daha az karmaşık yapı). Bu yüzden giderek daha fazla kullanıldığını görüyoruz.
+* Deneyimlerime göre, dil modelleme yapıyorsanız (diğer görevlerden emin değilsiniz) GRU'lar daha hızlı eğitim alır ve daha az eğitim verisi üzerinde LSTM'lerden daha iyi performans gösterir.
+* GRU'lar daha basittir ve bu nedenle değiştirilmesi daha kolaydır.
 
 ## Model 4: Çift Yönlü RNN modeli
 
@@ -1646,6 +1656,7 @@ x = embedding(x)
 # çift yönlü, her iki yöne de gider, 
 # bu nedenle normal bir LSTM katmanının parametrelerinin iki katıdır
 x = layers.Bidirectional(layers.LSTM(64))(x)
+
 outputs = layers.Dense(1, activation="sigmoid")(x)
 model_4 = tf.keras.Model(inputs, outputs, name="model_4_Bidirectional")
 ```
@@ -1697,17 +1708,17 @@ model_4_history = model_4.fit(
     callbacks=[create_tensorboard_callback(SAVE_DIR, "bidirectional_RNN")])
 ```
 
-    Saving TensorBoard log files to: model_logs/bidirectional_RNN/20210801-153806
+    Saving TensorBoard log files to: model_logs/bidirectional_RNN/20210822-071022
     Epoch 1/5
-    215/215 [==============================] - 8s 26ms/step - loss: 0.1109 - accuracy: 0.9663 - val_loss: 0.9836 - val_accuracy: 0.7703
+    215/215 [==============================] - 8s 21ms/step - loss: 0.1078 - accuracy: 0.9653 - val_loss: 0.9425 - val_accuracy: 0.7664
     Epoch 2/5
-    215/215 [==============================] - 4s 18ms/step - loss: 0.0510 - accuracy: 0.9780 - val_loss: 1.2340 - val_accuracy: 0.7795
+    215/215 [==============================] - 3s 14ms/step - loss: 0.0544 - accuracy: 0.9774 - val_loss: 1.2819 - val_accuracy: 0.7585
     Epoch 3/5
-    215/215 [==============================] - 4s 18ms/step - loss: 0.0450 - accuracy: 0.9803 - val_loss: 1.1361 - val_accuracy: 0.7717
+    215/215 [==============================] - 3s 14ms/step - loss: 0.0462 - accuracy: 0.9791 - val_loss: 1.1894 - val_accuracy: 0.7664
     Epoch 4/5
-    215/215 [==============================] - 4s 18ms/step - loss: 0.0434 - accuracy: 0.9793 - val_loss: 1.3135 - val_accuracy: 0.7743
+    215/215 [==============================] - 3s 14ms/step - loss: 0.0469 - accuracy: 0.9784 - val_loss: 1.3589 - val_accuracy: 0.7782
     Epoch 5/5
-    215/215 [==============================] - 4s 18ms/step - loss: 0.0386 - accuracy: 0.9820 - val_loss: 1.4744 - val_accuracy: 0.7743
+    215/215 [==============================] - 3s 14ms/step - loss: 0.0401 - accuracy: 0.9806 - val_loss: 1.4919 - val_accuracy: 0.7612
     
 
 Modelimizin çift yönlü olması nedeniyle eğitim süresinde hafif bir artış görüyoruz. Endişelenme, çok dramatik bir artış değil. Onunla bazı tahminler yapalım.
@@ -1721,16 +1732,16 @@ model_4_pred_probs[:10]
 
 
 
-    array([[9.4356615e-04],
-           [8.4144211e-01],
-           [9.9998629e-01],
-           [2.4504794e-02],
-           [4.6845675e-05],
-           [9.9975747e-01],
-           [9.9537474e-01],
-           [9.9999297e-01],
-           [9.9998868e-01],
-           [9.9848819e-01]], dtype=float32)
+    array([[1.2317987e-01],
+           [7.2211808e-01],
+           [9.9997759e-01],
+           [9.2619851e-02],
+           [5.5663345e-06],
+           [9.9944931e-01],
+           [9.8846996e-01],
+           [9.9999142e-01],
+           [9.9998176e-01],
+           [9.5131034e-01]], dtype=float32)
 
 
 
@@ -1760,10 +1771,10 @@ model_4_results
 
 
 
-    {'accuracy': 77.42782152230971,
-     'f1': 0.7722311836526509,
-     'precision': 0.7759894665484696,
-     'recall': 0.7742782152230971}
+    {'accuracy': 76.11548556430446,
+     'f1': 0.7593763358258425,
+     'precision': 0.7618883943071393,
+     'recall': 0.7611548556430446}
 
 
 
@@ -1774,10 +1785,10 @@ model_4_results
 compare_baseline_to_new_results(baseline_results, model_4_results)
 ```
 
-    Baseline accuracy: 79.27, New accuracy: 77.43, Difference: -1.84
-    Baseline precision: 0.81, New precision: 0.78, Difference: -0.04
-    Baseline recall: 0.79, New recall: 0.77, Difference: -0.02
-    Baseline f1: 0.79, New f1: 0.77, Difference: -0.01
+    Baseline accuracy: 79.27, New accuracy: 76.12, Difference: -3.15
+    Baseline precision: 0.81, New precision: 0.76, Difference: -0.05
+    Baseline recall: 0.79, New recall: 0.76, Difference: -0.03
+    Baseline f1: 0.79, New f1: 0.76, Difference: -0.03
     
 
 ## Metin için Evrişimli Sinir Ağları
@@ -1791,14 +1802,14 @@ CNN'leri dizilerle kullanmak için 2 boyutlu evrişim yerine 1 boyutlu evrişim 
 Diziler için tipik bir CNN mimarisi aşağıdaki gibi görünecektir:
 
 ```
-Girdiler (metin) -> Simgeleştirme -> Gömme -> Katmanlar -> Çıktılar (sınıf olasılıkları)
+Input (metin) -> Tokenization -> Embedding -> Layers -> Output (sınıf olasılıkları)
 ```
 
-"Bu, diğer modeller için kullandığımız mimari düzene benziyor..." diye düşünüyor olabilirsiniz. Haklısınız da. Fark yine katmanlar bileşenindedir. Bir LSTM veya GRU hücresi kullanmak yerine, bir [`tensorflow.keras.layers.Conv1D()`](https://www.tensorflow.org/api_docs/python/tf/keras/layers/) kullanacağız Conv1D) katmanı ve ardından bir [`tensorflow.keras.layers.GlobablMaxPool1D()`](https://www.tensorflow.org/api_docs/python/tf/keras/layers/GlobalMaxPool1D) katmanı.
+"Bu, diğer modeller için kullandığımız mimari düzene benziyor..." diye düşünüyor olabilirsiniz. Haklısınız da. Fark yine katmanlar bileşenindedir. Bir LSTM veya GRU hücresi kullanmak yerine, bir [`tensorflow.keras.layers.Conv1D()`](https://www.tensorflow.org/api_docs/python/tf/keras/layers/) katmanı ve ardından bir [`tensorflow.keras.layers.GlobablMaxPool1D()`](https://www.tensorflow.org/api_docs/python/tf/keras/layers/GlobalMaxPool1D) katmanı kullanacağız.
 
 ## Model 5: Conv1D
 
-Tam 1 boyutlu bir CNN modeli oluşturmadan önce, 1 boyutlu evrişim katmanını (**zamansal evrişim** olarak da adlandırılır) çalışırken görelim. Önce bir metin örneğinin gömülmesini oluşturacağız ve onu bir `Conv1D()` katmanı ve `GlobalMaxPool1D()` katmanından geçirmeyi deneyeceğiz.
+Tam 1 boyutlu bir CNN modeli oluşturmadan önce, 1 boyutlu evrişim katmanını  çalışırken görelim. Önce bir metin örneğinin gömülmesini oluşturacağız ve onu bir `Conv1D()` katmanı ve `GlobalMaxPool1D()` katmanından geçirmeyi deneyeceğiz.
 
 
 ```python
@@ -1823,7 +1834,7 @@ Gömme, ayarladığımız parametrelerin çıktı şekli boyutuna sahiptir (`inp
 
 1 boyutlu evrişim katmanı, parametreleriyle aynı hizada sıkıştırılmış bir çıktıya sahiptir. Aynı şey, maksimum havuzlama katmanı çıktısı için de geçerlidir.
 
-Metnimiz bir dize olarak başlar, ancak çeşitli dönüştürme adımlarıyla (belirteçleştirmeden yerleştirmeye, 1 boyutlu evrişimden maksimum havuza) 64 uzunluğunda bir özellik vektörüne dönüştürülür. Bu dönüşümlerin her birinin neye benzediğine bir bakalım.
+Metnimiz bir dize olarak başlar, ancak çeşitli dönüştürme adımlarıyla 64 uzunluğunda bir özellik vektörüne dönüştürülür. Bu dönüşümlerin her birinin neye benzediğine bir bakalım.
 
 
 ```python
@@ -1834,105 +1845,117 @@ embedding_test[:1], conv_1d_output[:1], max_pool_output[:1]
 
 
     (<tf.Tensor: shape=(1, 15, 128), dtype=float32, numpy=
-     array([[[ 0.07935887,  0.00606174, -0.02900355, ...,  0.02563756,
-              -0.01159754,  0.0028156 ],
-             [-0.07162038, -0.00598791,  0.04549426, ..., -0.0096315 ,
-               0.02526558,  0.01819799],
-             [-0.01358257, -0.07636132, -0.01914257, ...,  0.05432836,
-               0.02298414,  0.02955275],
+     array([[[ 0.00319095, -0.01416333, -0.03029248, ..., -0.03457287,
+              -0.04297013, -0.04403625],
+             [-0.02292195, -0.05479934, -0.00761494, ...,  0.04868896,
+               0.05149416,  0.00035047],
+             [ 0.01908881, -0.02073449, -0.03212655, ...,  0.04440343,
+               0.01428682, -0.01586873],
              ...,
-             [ 0.00397736, -0.02623309,  0.01196784, ...,  0.00215693,
-               0.0066976 ,  0.0234192 ],
-             [ 0.00397736, -0.02623309,  0.01196784, ...,  0.00215693,
-               0.0066976 ,  0.0234192 ],
-             [ 0.00397736, -0.02623309,  0.01196784, ...,  0.00215693,
-               0.0066976 ,  0.0234192 ]]], dtype=float32)>,
+             [-0.00470371,  0.01156277, -0.01759247, ..., -0.00937972,
+               0.01118098, -0.00774161],
+             [-0.00470371,  0.01156277, -0.01759247, ..., -0.00937972,
+               0.01118098, -0.00774161],
+             [-0.00470371,  0.01156277, -0.01759247, ..., -0.00937972,
+               0.01118098, -0.00774161]]], dtype=float32)>,
      <tf.Tensor: shape=(1, 11, 32), dtype=float32, numpy=
-     array([[[0.        , 0.05690441, 0.05285177, 0.        , 0.0180884 ,
-              0.02882726, 0.04080626, 0.        , 0.00148557, 0.02165018,
-              0.        , 0.        , 0.06295198, 0.        , 0.04039711,
-              0.        , 0.05721434, 0.06057747, 0.0626595 , 0.02074664,
-              0.        , 0.05778538, 0.05920956, 0.01130978, 0.        ,
-              0.        , 0.        , 0.00420184, 0.        , 0.        ,
-              0.00469104, 0.        ],
-             [0.01333249, 0.01023622, 0.00460276, 0.        , 0.01757135,
-              0.01829607, 0.        , 0.0262695 , 0.        , 0.02639193,
-              0.        , 0.02588441, 0.        , 0.        , 0.03884322,
-              0.02489556, 0.02860131, 0.        , 0.00422521, 0.0331399 ,
-              0.        , 0.        , 0.        , 0.04131615, 0.04867007,
-              0.        , 0.        , 0.10718557, 0.        , 0.00798158,
-              0.00821742, 0.        ],
-             [0.        , 0.03445299, 0.04340572, 0.05354061, 0.02494319,
-              0.        , 0.        , 0.        , 0.06803069, 0.0300979 ,
-              0.        , 0.        , 0.08175348, 0.        , 0.00450628,
-              0.01824   , 0.04239858, 0.03069189, 0.07114986, 0.00635919,
-              0.        , 0.        , 0.        , 0.07567331, 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.06562802,
-              0.        , 0.        ],
-             [0.        , 0.        , 0.05272358, 0.04586241, 0.        ,
-              0.        , 0.0226765 , 0.00967824, 0.        , 0.01657301,
-              0.00333301, 0.        , 0.        , 0.        , 0.03598679,
-              0.07951859, 0.        , 0.03343596, 0.03662868, 0.0268628 ,
-              0.0113782 , 0.        , 0.        , 0.02937523, 0.        ,
-              0.0043251 , 0.02814908, 0.03041438, 0.        , 0.        ,
-              0.009555  , 0.01047972],
-             [0.        , 0.01732019, 0.04570982, 0.02897843, 0.        ,
-              0.        , 0.03221568, 0.03426346, 0.        , 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.0614885 ,
-              0.02594871, 0.        , 0.03443816, 0.03737513, 0.        ,
-              0.        , 0.        , 0.        , 0.02973526, 0.04856867,
-              0.        , 0.02295054, 0.        , 0.00226113, 0.01191485,
-              0.04680892, 0.        ],
-             [0.        , 0.02282062, 0.00528565, 0.00618665, 0.00781008,
-              0.        , 0.01120787, 0.01631753, 0.        , 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.        ,
-              0.03385198, 0.01994631, 0.03618488, 0.03873807, 0.00636665,
-              0.        , 0.01566767, 0.        , 0.03648477, 0.00926591,
-              0.        , 0.        , 0.        , 0.03317049, 0.01300492,
-              0.01469289, 0.03873161],
-             [0.        , 0.02282062, 0.00528565, 0.00618665, 0.00781008,
-              0.        , 0.01120788, 0.01631753, 0.        , 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.        ,
-              0.03385197, 0.01994631, 0.03618488, 0.03873807, 0.00636664,
-              0.        , 0.01566769, 0.        , 0.03648478, 0.0092659 ,
-              0.        , 0.        , 0.        , 0.03317049, 0.01300493,
-              0.0146929 , 0.03873161],
-             [0.        , 0.02282062, 0.00528565, 0.00618665, 0.00781008,
-              0.        , 0.01120787, 0.01631753, 0.        , 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.        ,
-              0.03385198, 0.01994631, 0.03618487, 0.03873807, 0.00636665,
-              0.        , 0.01566768, 0.        , 0.03648477, 0.00926591,
-              0.        , 0.        , 0.        , 0.03317049, 0.01300492,
-              0.0146929 , 0.03873161],
-             [0.        , 0.02282062, 0.00528565, 0.00618664, 0.00781008,
-              0.        , 0.01120788, 0.01631753, 0.        , 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.        ,
-              0.03385197, 0.01994631, 0.03618488, 0.03873807, 0.00636664,
-              0.        , 0.01566768, 0.        , 0.03648477, 0.0092659 ,
-              0.        , 0.        , 0.        , 0.0331705 , 0.01300491,
-              0.0146929 , 0.03873162],
-             [0.        , 0.02282062, 0.00528564, 0.00618664, 0.00781008,
-              0.        , 0.01120787, 0.01631753, 0.        , 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.        ,
-              0.03385197, 0.01994632, 0.03618488, 0.03873806, 0.00636664,
-              0.        , 0.01566768, 0.        , 0.03648477, 0.00926591,
-              0.        , 0.        , 0.        , 0.03317049, 0.01300492,
-              0.01469289, 0.03873161],
-             [0.        , 0.02282062, 0.00528565, 0.00618664, 0.00781008,
-              0.        , 0.01120788, 0.01631752, 0.        , 0.        ,
-              0.        , 0.        , 0.        , 0.        , 0.        ,
-              0.03385197, 0.01994631, 0.03618488, 0.03873807, 0.00636664,
-              0.        , 0.01566768, 0.        , 0.03648477, 0.0092659 ,
-              0.        , 0.        , 0.        , 0.0331705 , 0.01300492,
-              0.01469289, 0.03873161]]], dtype=float32)>,
+     array([[[0.00000000e+00, 8.05034712e-02, 0.00000000e+00, 1.15600638e-02,
+              0.00000000e+00, 5.81747759e-03, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 1.27381273e-02, 3.38597856e-02, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 4.80861589e-02, 0.00000000e+00,
+              3.96751724e-02, 0.00000000e+00, 0.00000000e+00, 3.05385999e-02,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 4.12951857e-02, 0.00000000e+00, 6.95906281e-02,
+              0.00000000e+00, 5.94841614e-02, 9.18674469e-02, 5.20823263e-02],
+             [2.63430271e-02, 8.44356269e-02, 2.81330571e-03, 6.74604177e-02,
+              0.00000000e+00, 8.42802040e-03, 0.00000000e+00, 1.10559706e-02,
+              4.07118723e-02, 0.00000000e+00, 0.00000000e+00, 3.80547568e-02,
+              0.00000000e+00, 8.79763439e-02, 4.59032431e-02, 3.13887000e-02,
+              2.62255073e-02, 4.18251473e-03, 0.00000000e+00, 0.00000000e+00,
+              1.02217998e-02, 0.00000000e+00, 9.08166170e-03, 2.56322473e-02,
+              7.09645683e-03, 1.22743607e-01, 0.00000000e+00, 3.41253951e-02,
+              0.00000000e+00, 0.00000000e+00, 6.04886301e-02, 4.24289927e-02],
+             [0.00000000e+00, 2.03429386e-02, 0.00000000e+00, 9.06437784e-02,
+              0.00000000e+00, 1.33926468e-02, 6.44886717e-02, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 5.57984598e-03, 0.00000000e+00,
+              2.80500129e-02, 3.06625962e-02, 1.82882883e-02, 0.00000000e+00,
+              0.00000000e+00, 1.14728551e-04, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 4.61776145e-02,
+              2.19251886e-02, 6.81912601e-02, 0.00000000e+00, 2.30189972e-02,
+              0.00000000e+00, 1.26050590e-02, 1.36954803e-02, 0.00000000e+00],
+             [0.00000000e+00, 7.14183897e-02, 0.00000000e+00, 7.31983259e-02,
+              0.00000000e+00, 0.00000000e+00, 1.36040617e-02, 0.00000000e+00,
+              0.00000000e+00, 4.47261706e-02, 0.00000000e+00, 0.00000000e+00,
+              1.97688714e-02, 0.00000000e+00, 2.63667684e-02, 1.55701367e-02,
+              9.24898498e-03, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.16558182e-02, 0.00000000e+00, 1.84091628e-02,
+              0.00000000e+00, 9.06079710e-02, 0.00000000e+00, 5.93137965e-02,
+              0.00000000e+00, 7.36142173e-02, 2.71241888e-02, 0.00000000e+00],
+             [0.00000000e+00, 5.90131134e-02, 0.00000000e+00, 2.19131652e-02,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 2.85770036e-02, 3.44222710e-02, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 2.71796528e-02, 5.12055531e-02,
+              5.00489324e-02, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.82179581e-02, 1.01004215e-02, 0.00000000e+00,
+              3.42076607e-02, 5.01884520e-02, 0.00000000e+00, 6.73409179e-02,
+              1.43867647e-02, 5.38122803e-02, 5.80260493e-02, 0.00000000e+00],
+             [0.00000000e+00, 4.34517823e-02, 6.49180636e-03, 2.89049260e-02,
+              0.00000000e+00, 0.00000000e+00, 1.56823136e-02, 2.80115753e-04,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 1.30828079e-02, 3.57510448e-02,
+              1.88314561e-02, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.27870250e-02, 4.26470116e-02, 1.91313103e-02,
+              1.24170668e-02, 6.92164451e-02, 0.00000000e+00, 4.52357307e-02,
+              1.14318049e-02, 4.45467979e-02, 2.09700465e-02, 0.00000000e+00],
+             [0.00000000e+00, 4.34517749e-02, 6.49180962e-03, 2.89049223e-02,
+              0.00000000e+00, 0.00000000e+00, 1.56823210e-02, 2.80119071e-04,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 1.30828042e-02, 3.57510559e-02,
+              1.88314579e-02, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.27870324e-02, 4.26470190e-02, 1.91313159e-02,
+              1.24170687e-02, 6.92164376e-02, 0.00000000e+00, 4.52357307e-02,
+              1.14318095e-02, 4.45467979e-02, 2.09700502e-02, 0.00000000e+00],
+             [0.00000000e+00, 4.34517749e-02, 6.49180589e-03, 2.89049186e-02,
+              0.00000000e+00, 0.00000000e+00, 1.56823173e-02, 2.80117441e-04,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 1.30827995e-02, 3.57510522e-02,
+              1.88314561e-02, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.27870324e-02, 4.26470190e-02, 1.91313140e-02,
+              1.24170706e-02, 6.92164376e-02, 0.00000000e+00, 4.52357270e-02,
+              1.14318077e-02, 4.45467979e-02, 2.09700502e-02, 0.00000000e+00],
+             [0.00000000e+00, 4.34517786e-02, 6.49181195e-03, 2.89049149e-02,
+              0.00000000e+00, 0.00000000e+00, 1.56823210e-02, 2.80118053e-04,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 1.30827948e-02, 3.57510522e-02,
+              1.88314617e-02, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.27870250e-02, 4.26470228e-02, 1.91313084e-02,
+              1.24170706e-02, 6.92164451e-02, 0.00000000e+00, 4.52357233e-02,
+              1.14318114e-02, 4.45468016e-02, 2.09700502e-02, 0.00000000e+00],
+             [0.00000000e+00, 4.34517711e-02, 6.49181567e-03, 2.89049074e-02,
+              0.00000000e+00, 0.00000000e+00, 1.56823210e-02, 2.80116277e-04,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 1.30828023e-02, 3.57510485e-02,
+              1.88314617e-02, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.27870324e-02, 4.26470228e-02, 1.91313103e-02,
+              1.24170696e-02, 6.92164302e-02, 0.00000000e+00, 4.52357307e-02,
+              1.14318039e-02, 4.45467904e-02, 2.09700465e-02, 0.00000000e+00],
+             [0.00000000e+00, 4.34517749e-02, 6.49181474e-03, 2.89049149e-02,
+              0.00000000e+00, 0.00000000e+00, 1.56823229e-02, 2.80122069e-04,
+              0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 0.00000000e+00, 1.30828032e-02, 3.57510522e-02,
+              1.88314542e-02, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+              0.00000000e+00, 3.27870250e-02, 4.26470190e-02, 1.91313140e-02,
+              1.24170706e-02, 6.92164451e-02, 0.00000000e+00, 4.52357233e-02,
+              1.14318067e-02, 4.45467941e-02, 2.09700484e-02, 0.00000000e+00]]],
+           dtype=float32)>,
      <tf.Tensor: shape=(1, 32), dtype=float32, numpy=
-     array([[0.01333249, 0.05690441, 0.05285177, 0.05354061, 0.02494319,
-             0.02882726, 0.04080626, 0.03426346, 0.06803069, 0.0300979 ,
-             0.00333301, 0.02588441, 0.08175348, 0.        , 0.0614885 ,
-             0.07951859, 0.05721434, 0.06057747, 0.07114986, 0.0331399 ,
-             0.0113782 , 0.05778538, 0.05920956, 0.07567331, 0.04867007,
-             0.0043251 , 0.02814908, 0.10718557, 0.0331705 , 0.06562802,
-             0.04680892, 0.03873162]], dtype=float32)>)
+     array([[0.02634303, 0.08443563, 0.00649182, 0.09064378, 0.        ,
+             0.01339265, 0.06448867, 0.01105597, 0.04071187, 0.04472617,
+             0.03442227, 0.03805476, 0.02805001, 0.08797634, 0.04808616,
+             0.05120555, 0.05004893, 0.00418251, 0.        , 0.0305386 ,
+             0.0102218 , 0.03821796, 0.04264702, 0.04617761, 0.03420766,
+             0.12274361, 0.        , 0.06959063, 0.01438676, 0.07361422,
+             0.09186745, 0.05208233]], dtype=float32)>)
 
 
 
@@ -1993,17 +2016,17 @@ model_5_history = model_5.fit(train_sentences,
                                                                      "Conv1D")])
 ```
 
-    Saving TensorBoard log files to: model_logs/Conv1D/20210801-153855
+    Saving TensorBoard log files to: model_logs/Conv1D/20210822-071110
     Epoch 1/5
-    215/215 [==============================] - 6s 20ms/step - loss: 0.1315 - accuracy: 0.9603 - val_loss: 0.8737 - val_accuracy: 0.7756
+    215/215 [==============================] - 4s 10ms/step - loss: 0.1339 - accuracy: 0.9584 - val_loss: 0.8689 - val_accuracy: 0.7664
     Epoch 2/5
-    215/215 [==============================] - 3s 15ms/step - loss: 0.0777 - accuracy: 0.9721 - val_loss: 0.9853 - val_accuracy: 0.7677
+    215/215 [==============================] - 2s 7ms/step - loss: 0.0763 - accuracy: 0.9727 - val_loss: 0.9643 - val_accuracy: 0.7651
     Epoch 3/5
-    215/215 [==============================] - 3s 15ms/step - loss: 0.0613 - accuracy: 0.9769 - val_loss: 1.1187 - val_accuracy: 0.7677
+    215/215 [==============================] - 2s 7ms/step - loss: 0.0600 - accuracy: 0.9761 - val_loss: 1.0885 - val_accuracy: 0.7546
     Epoch 4/5
-    215/215 [==============================] - 3s 16ms/step - loss: 0.0548 - accuracy: 0.9781 - val_loss: 1.1937 - val_accuracy: 0.7638
+    215/215 [==============================] - 2s 7ms/step - loss: 0.0542 - accuracy: 0.9783 - val_loss: 1.1663 - val_accuracy: 0.7559
     Epoch 5/5
-    215/215 [==============================] - 3s 15ms/step - loss: 0.0527 - accuracy: 0.9787 - val_loss: 1.2281 - val_accuracy: 0.7690
+    215/215 [==============================] - 2s 7ms/step - loss: 0.0512 - accuracy: 0.9790 - val_loss: 1.2285 - val_accuracy: 0.7572
     
 
 Güzel! GPU hızlandırma sayesinde 1D evrişimli modelimiz güzel ve hızlı bir şekilde eğitiyor. Onunla bazı tahminler yapalım ve eskisi gibi değerlendirelim.
@@ -2017,16 +2040,16 @@ model_5_pred_probs[:10]
 
 
 
-    array([[1.5966418e-01],
-           [7.7939183e-01],
-           [9.9991620e-01],
-           [4.4257466e-02],
-           [2.8306598e-08],
-           [9.8507363e-01],
-           [9.6121919e-01],
-           [9.9981207e-01],
-           [9.9999893e-01],
-           [7.4319720e-01]], dtype=float32)
+    array([[1.3275287e-01],
+           [3.1561503e-01],
+           [9.9978405e-01],
+           [5.4979675e-02],
+           [2.5409597e-07],
+           [9.8810232e-01],
+           [9.4828182e-01],
+           [9.9995220e-01],
+           [9.9999881e-01],
+           [9.4418395e-01]], dtype=float32)
 
 
 
@@ -2039,7 +2062,7 @@ model_5_preds[:10]
 
 
 
-    <tf.Tensor: shape=(10,), dtype=float32, numpy=array([0., 1., 1., 0., 0., 1., 1., 1., 1., 1.], dtype=float32)>
+    <tf.Tensor: shape=(10,), dtype=float32, numpy=array([0., 0., 1., 0., 0., 1., 1., 1., 1., 1.], dtype=float32)>
 
 
 
@@ -2053,10 +2076,10 @@ model_5_results
 
 
 
-    {'accuracy': 76.9028871391076,
-     'f1': 0.7669342344352704,
-     'precision': 0.7706028054440214,
-     'recall': 0.7690288713910761}
+    {'accuracy': 75.7217847769029,
+     'f1': 0.7549472494674683,
+     'precision': 0.7585989210360964,
+     'recall': 0.7572178477690289}
 
 
 
@@ -2065,17 +2088,17 @@ model_5_results
 compare_baseline_to_new_results(baseline_results, model_5_results)
 ```
 
-    Baseline accuracy: 79.27, New accuracy: 76.90, Difference: -2.36
-    Baseline precision: 0.81, New precision: 0.77, Difference: -0.04
-    Baseline recall: 0.79, New recall: 0.77, Difference: -0.02
-    Baseline f1: 0.79, New f1: 0.77, Difference: -0.02
+    Baseline accuracy: 79.27, New accuracy: 75.72, Difference: -3.54
+    Baseline precision: 0.81, New precision: 0.76, Difference: -0.05
+    Baseline recall: 0.79, New recall: 0.76, Difference: -0.04
+    Baseline f1: 0.79, New f1: 0.75, Difference: -0.03
     
 
-# Önceden Eğitilmiş Gömmeleri Kullanma (NLP için transfer öğrenimi)
+# Önceden Eğitilmiş Embedleri Kullanma (NLP için transfer öğrenimi)
 
 Oluşturduğumuz ve eğittiğimiz önceki tüm derin öğrenme modelleri için her seferinde sıfırdan kendi yerleştirmelerimizi oluşturduk ve kullandık.
 
-Ancak yaygın bir uygulama, **aktarım öğrenimi** aracılığıyla önceden eğitilmiş yerleştirmelerden yararlanmaktır. Bir sonraki modelimiz için, kendi gömme katmanımızı kullanmak yerine, onu önceden eğitilmiş bir gömme katmanıyla değiştireceğiz.
+Ancak yaygın bir uygulama, **aktarım öğrenimi** aracılığıyla önceden eğitilmiş embedlerder yararlanmaktır. Bir sonraki modelimiz için, kendi gömme katmanımızı kullanmak yerine, onu önceden eğitilmiş bir gömme katmanıyla değiştireceğiz.
 
 Daha spesifik olarak, [TensorFlow Hub](https://tfhub.dev/google) adresinden [Universal Sentence Encoder](https://www.aclweb.org/anthology/D18-2029.pdf) kullanacağız. (universal-sentence-encoder, çeşitli görevler için çok sayıda önceden eğitilmiş model kaynağı içeren harika bir model).
 
@@ -2105,15 +2128,15 @@ print(embed_samples[0][:50])
 ```
 
     tf.Tensor(
-    [-0.01157027  0.0248591   0.02878048 -0.012715    0.03971538  0.0882776
-      0.02680985  0.05589838 -0.01068729 -0.00597292  0.00639323 -0.0181952
-      0.00030814  0.09105888  0.05874645 -0.03180628  0.01512474 -0.05162929
-      0.00991367 -0.06865346 -0.04209305  0.0267898   0.03011008  0.00321069
-     -0.00337971 -0.04787356  0.02266719 -0.00985925 -0.04063613 -0.01292093
-     -0.04666384  0.056303   -0.03949255  0.00517688  0.02495828 -0.07014441
-      0.02871508  0.04947684 -0.00633978 -0.08960193  0.02807117 -0.00808362
-     -0.01360601  0.0599865  -0.10361787 -0.05195374  0.00232955 -0.0233253
-     -0.03758105  0.03327729], shape=(50,), dtype=float32)
+    [-0.01157024  0.0248591   0.0287805  -0.01271502  0.03971543  0.08827759
+      0.02680986  0.05589837 -0.01068731 -0.0059729   0.00639324 -0.01819523
+      0.00030817  0.09105891  0.05874644 -0.03180627  0.01512476 -0.05162928
+      0.00991369 -0.06865346 -0.04209306  0.0267898   0.03011008  0.00321069
+     -0.00337969 -0.04787359  0.02266718 -0.00985924 -0.04063614 -0.01292095
+     -0.04666384  0.056303   -0.03949255  0.00517685  0.02495828 -0.07014439
+      0.02871508  0.04947682 -0.00633971 -0.08960191  0.02807117 -0.00808362
+     -0.01360601  0.05998649 -0.10361786 -0.05195372  0.00232955 -0.02332528
+     -0.03758105  0.0332773 ], shape=(50,), dtype=float32)
     
 
 
@@ -2184,7 +2207,7 @@ model_6.summary()
 
 USE katmanındaki parametrelerin sayısına dikkat edin, bunlar çeşitli metin kaynaklarında (Wikipedia, web haberleri, web soru-cevap forumları vb.) öğrendiği önceden eğitilmiş ağırlıklardır.
 
-Eğitilebilir parametreler yalnızca çıktı katmanlarımızdadır, başka bir deyişle, USE ağırlıklarını donmuş halde tutuyor ve onu bir özellik çıkarıcı olarak kullanıyoruz. "hub.KerasLayer" örneğini oluştururken "trainable=True" ayarını yaparak bu ağırlıklara ince ayar yapabiliriz.
+Eğitilebilir parametreler yalnızca çıktı katmanlarımızdadır, başka bir deyişle, USE ağırlıklarını donmuş halde tutuyor ve onu bir özellik çıkarıcı olarak kullanıyoruz. "`hub.KerasLayer`" örneğini oluştururken "`trainable=True`" ayarını yaparak bu ağırlıklara ince ayar yapabiliriz.
 
 Şimdi hazır bir özellik çıkarıcı modelimiz var, hadi onu eğitelim ve `create_tensorboard_callback()` fonksiyonumuzu kullanarak sonuçlarını TensorBoard'a izleyelim.
 
@@ -2198,17 +2221,17 @@ model_6_history = model_6.fit(
     callbacks=[create_tensorboard_callback(SAVE_DIR, "tf_hub_sentence_encoder")])
 ```
 
-    Saving TensorBoard log files to: model_logs/tf_hub_sentence_encoder/20210801-160624
+    Saving TensorBoard log files to: model_logs/tf_hub_sentence_encoder/20210822-071154
     Epoch 1/5
-    215/215 [==============================] - 7s 24ms/step - loss: 0.5072 - accuracy: 0.7825 - val_loss: 0.4490 - val_accuracy: 0.8005
+    215/215 [==============================] - 10s 31ms/step - loss: 0.5060 - accuracy: 0.7787 - val_loss: 0.4518 - val_accuracy: 0.8005
     Epoch 2/5
-    215/215 [==============================] - 2s 11ms/step - loss: 0.4148 - accuracy: 0.8178 - val_loss: 0.4403 - val_accuracy: 0.8123
+    215/215 [==============================] - 4s 18ms/step - loss: 0.4145 - accuracy: 0.8183 - val_loss: 0.4373 - val_accuracy: 0.8110
     Epoch 3/5
-    215/215 [==============================] - 2s 12ms/step - loss: 0.4014 - accuracy: 0.8235 - val_loss: 0.4349 - val_accuracy: 0.8123
+    215/215 [==============================] - 4s 18ms/step - loss: 0.4018 - accuracy: 0.8206 - val_loss: 0.4317 - val_accuracy: 0.8150
     Epoch 4/5
-    215/215 [==============================] - 2s 11ms/step - loss: 0.3932 - accuracy: 0.8257 - val_loss: 0.4319 - val_accuracy: 0.8110
+    215/215 [==============================] - 4s 17ms/step - loss: 0.3938 - accuracy: 0.8269 - val_loss: 0.4276 - val_accuracy: 0.8176
     Epoch 5/5
-    215/215 [==============================] - 2s 11ms/step - loss: 0.3859 - accuracy: 0.8318 - val_loss: 0.4258 - val_accuracy: 0.8176
+    215/215 [==============================] - 4s 17ms/step - loss: 0.3888 - accuracy: 0.8278 - val_loss: 0.4275 - val_accuracy: 0.8202
     
 
 Diğer modellerimizde yaptığımız gibi onunla da bazı tahminler yapalım ve onları değerlendirelim.
@@ -2223,16 +2246,16 @@ model_6_pred_probs[:10]
 
 
 
-    array([[0.21114992],
-           [0.8244935 ],
-           [0.9867014 ],
-           [0.23293671],
-           [0.77170694],
-           [0.7586733 ],
-           [0.97968525],
-           [0.98227775],
-           [0.9455673 ],
-           [0.10212851]], dtype=float32)
+    array([[0.16858765],
+           [0.78706455],
+           [0.9866457 ],
+           [0.18491879],
+           [0.74524015],
+           [0.7418657 ],
+           [0.9791367 ],
+           [0.97791415],
+           [0.94224715],
+           [0.0893833 ]], dtype=float32)
 
 
 
@@ -2260,10 +2283,10 @@ model_6_results
 
 
 
-    {'accuracy': 81.75853018372703,
-     'f1': 0.8169333236783015,
-     'precision': 0.8177933628741751,
-     'recall': 0.8175853018372703}
+    {'accuracy': 82.02099737532808,
+     'f1': 0.8187283797448478,
+     'precision': 0.8226273514784717,
+     'recall': 0.8202099737532809}
 
 
 
@@ -2273,9 +2296,9 @@ model_6_results
 compare_baseline_to_new_results(baseline_results, model_6_results)
 ```
 
-    Baseline accuracy: 79.27, New accuracy: 81.76, Difference: 2.49
+    Baseline accuracy: 79.27, New accuracy: 82.02, Difference: 2.76
     Baseline precision: 0.81, New precision: 0.82, Difference: 0.01
-    Baseline recall: 0.79, New recall: 0.82, Difference: 0.02
+    Baseline recall: 0.79, New recall: 0.82, Difference: 0.03
     Baseline f1: 0.79, New f1: 0.82, Difference: 0.03
     
 
@@ -2365,17 +2388,17 @@ model_7_history = model_7.fit(
     callbacks=[create_tensorboard_callback(SAVE_DIR, "10_percent_tf_hub_sentence_encoder")])
 ```
 
-    Saving TensorBoard log files to: model_logs/10_percent_tf_hub_sentence_encoder/20210801-164936
+    Saving TensorBoard log files to: model_logs/10_percent_tf_hub_sentence_encoder/20210822-071224
     Epoch 1/5
-    22/22 [==============================] - 4s 120ms/step - loss: 0.6725 - accuracy: 0.6531 - val_loss: 0.6481 - val_accuracy: 0.7362
+    22/22 [==============================] - 6s 154ms/step - loss: 0.6651 - accuracy: 0.6851 - val_loss: 0.6443 - val_accuracy: 0.6929
     Epoch 2/5
-    22/22 [==============================] - 1s 25ms/step - loss: 0.5974 - accuracy: 0.8192 - val_loss: 0.5894 - val_accuracy: 0.7625
+    22/22 [==============================] - 1s 46ms/step - loss: 0.5920 - accuracy: 0.7959 - val_loss: 0.5918 - val_accuracy: 0.7310
     Epoch 3/5
-    22/22 [==============================] - 0s 21ms/step - loss: 0.5181 - accuracy: 0.8236 - val_loss: 0.5348 - val_accuracy: 0.7638
+    22/22 [==============================] - 1s 35ms/step - loss: 0.5166 - accuracy: 0.8163 - val_loss: 0.5415 - val_accuracy: 0.7638
     Epoch 4/5
-    22/22 [==============================] - 0s 20ms/step - loss: 0.4551 - accuracy: 0.8294 - val_loss: 0.5033 - val_accuracy: 0.7690
+    22/22 [==============================] - 1s 33ms/step - loss: 0.4554 - accuracy: 0.8382 - val_loss: 0.5058 - val_accuracy: 0.7795
     Epoch 5/5
-    22/22 [==============================] - 1s 24ms/step - loss: 0.4097 - accuracy: 0.8280 - val_loss: 0.4943 - val_accuracy: 0.7651
+    22/22 [==============================] - 1s 32ms/step - loss: 0.4120 - accuracy: 0.8382 - val_loss: 0.4925 - val_accuracy: 0.7730
     
 
 Daha az miktarda eğitim verisi nedeniyle eğitim, eskisinden daha hızlı bitti. Eğitim verilerinin %10'unu öğrendikten sonra modelimizin performansını değerlendirelim.
@@ -2389,16 +2412,16 @@ model_7_pred_probs[:10]
 
 
 
-    array([[0.24823202],
-           [0.77385026],
-           [0.90565777],
-           [0.31064412],
-           [0.48999107],
-           [0.8384433 ],
-           [0.8271982 ],
-           [0.8706751 ],
-           [0.8083445 ],
-           [0.12355509]], dtype=float32)
+    array([[0.26725993],
+           [0.7663658 ],
+           [0.8697842 ],
+           [0.30411467],
+           [0.5334834 ],
+           [0.82516   ],
+           [0.8102658 ],
+           [0.84461933],
+           [0.8153697 ],
+           [0.10006839]], dtype=float32)
 
 
 
@@ -2411,7 +2434,7 @@ model_7_preds[:10]
 
 
 
-    <tf.Tensor: shape=(10,), dtype=float32, numpy=array([0., 1., 1., 0., 0., 1., 1., 1., 1., 0.], dtype=float32)>
+    <tf.Tensor: shape=(10,), dtype=float32, numpy=array([0., 1., 1., 0., 1., 1., 1., 1., 1., 0.], dtype=float32)>
 
 
 
@@ -2424,10 +2447,10 @@ model_7_results
 
 
 
-    {'accuracy': 76.50918635170603,
-     'f1': 0.7596870346821398,
-     'precision': 0.7746651651856151,
-     'recall': 0.7650918635170604}
+    {'accuracy': 77.29658792650919,
+     'f1': 0.7698502254147366,
+     'precision': 0.7770640736660165,
+     'recall': 0.7729658792650919}
 
 
 
@@ -2436,10 +2459,10 @@ model_7_results
 compare_baseline_to_new_results(baseline_results, model_7_results)
 ```
 
-    Baseline accuracy: 79.27, New accuracy: 76.51, Difference: -2.76
-    Baseline precision: 0.81, New precision: 0.77, Difference: -0.04
-    Baseline recall: 0.79, New recall: 0.77, Difference: -0.03
-    Baseline f1: 0.79, New f1: 0.76, Difference: -0.03
+    Baseline accuracy: 79.27, New accuracy: 77.30, Difference: -1.97
+    Baseline precision: 0.81, New precision: 0.78, Difference: -0.03
+    Baseline recall: 0.79, New recall: 0.77, Difference: -0.02
+    Baseline f1: 0.79, New f1: 0.77, Difference: -0.02
     
 
 # Modellerimizin Her Birinin Performansını Karşılaştırma
@@ -2501,52 +2524,52 @@ all_model_results
     </tr>
     <tr>
       <th>simple_dense</th>
-      <td>78.215223</td>
-      <td>0.786845</td>
-      <td>0.782152</td>
-      <td>0.779088</td>
+      <td>78.477690</td>
+      <td>0.789165</td>
+      <td>0.784777</td>
+      <td>0.781896</td>
     </tr>
     <tr>
       <th>lstm</th>
-      <td>77.821522</td>
-      <td>0.778385</td>
-      <td>0.778215</td>
-      <td>0.778288</td>
+      <td>78.083990</td>
+      <td>0.781487</td>
+      <td>0.780840</td>
+      <td>0.779482</td>
     </tr>
     <tr>
       <th>gru</th>
-      <td>78.346457</td>
-      <td>0.785557</td>
-      <td>0.783465</td>
-      <td>0.781439</td>
+      <td>77.165354</td>
+      <td>0.771295</td>
+      <td>0.771654</td>
+      <td>0.771282</td>
     </tr>
     <tr>
       <th>bidirectional</th>
-      <td>77.427822</td>
-      <td>0.775989</td>
-      <td>0.774278</td>
-      <td>0.772231</td>
+      <td>76.115486</td>
+      <td>0.761888</td>
+      <td>0.761155</td>
+      <td>0.759376</td>
     </tr>
     <tr>
       <th>conv1d</th>
-      <td>76.902887</td>
-      <td>0.770603</td>
-      <td>0.769029</td>
-      <td>0.766934</td>
+      <td>75.721785</td>
+      <td>0.758599</td>
+      <td>0.757218</td>
+      <td>0.754947</td>
     </tr>
     <tr>
       <th>tf_hub_sentence_encoder</th>
-      <td>81.758530</td>
-      <td>0.817793</td>
-      <td>0.817585</td>
-      <td>0.816933</td>
+      <td>82.020997</td>
+      <td>0.822627</td>
+      <td>0.820210</td>
+      <td>0.818728</td>
     </tr>
     <tr>
       <th>tf_hub_10_percent_data</th>
-      <td>76.509186</td>
-      <td>0.774665</td>
-      <td>0.765092</td>
-      <td>0.759687</td>
+      <td>77.296588</td>
+      <td>0.777064</td>
+      <td>0.772966</td>
+      <td>0.769850</td>
     </tr>
   </tbody>
 </table>
@@ -2563,7 +2586,7 @@ all_model_results.plot(kind="bar", figsize=(10, 7)).legend(bbox_to_anchor=(1.0, 
 
 
     
-![png](8-NLP%27ye%20Giri%C5%9F_files/8-NLP%27ye%20Giri%C5%9F_168_0.png)
+![png](8-NLP%27ye%20Giris_files/8-NLP%27ye%20Giris_169_0.png)
     
 
 
@@ -2578,7 +2601,7 @@ all_model_results.sort_values("f1", ascending=False)["f1"].plot(kind="bar", figs
 
 
     
-![png](8-NLP%27ye%20Giri%C5%9F_files/8-NLP%27ye%20Giri%C5%9F_170_0.png)
+![png](8-NLP%27ye%20Giris_files/8-NLP%27ye%20Giris_171_0.png)
     
 
 
@@ -2590,7 +2613,7 @@ Birçok üretim sistemi, bir tahmin yapmak için bir **ensemble** (birden çok f
 
 Model istiflemenin ardındaki fikir, birbiriyle ilişkisiz birkaç modelin bir tahmin üzerinde anlaşmaya varması durumunda, tahminin tekil bir model tarafından yapılan bir tahminden daha sağlam olması gerektiğidir.
 
-Yukarıdaki cümledeki anahtar kelime ** uncorrelated**, bu da farklı model türleri demenin başka bir yoludur. Örneğin, bizim durumumuzda taban çizgimizi, çift yönlü modelimizi ve TensorFlow Hub USE modelimizi birleştirebiliriz.
+Yukarıdaki cümledeki anahtar kelime **uncorrelated**, bu da farklı model türleri demenin başka bir yoludur. Örneğin, bizim durumumuzda taban çizgimizi, çift yönlü modelimizi ve TensorFlow Hub USE modelimizi birleştirebiliriz.
 
 Bu modellerin hepsi aynı veriler üzerinde eğitilmiş olsa da, hepsinin farklı bir kalıp bulma yolu vardır.
 
@@ -2623,7 +2646,7 @@ combined_preds[:20]
 
 
     <tf.Tensor: shape=(20,), dtype=float32, numpy=
-    array([1., 1., 1., 0., 0., 1., 1., 1., 1., 1., 0., 1., 0., 1., 0., 0., 0.,
+    array([0., 1., 1., 0., 0., 1., 1., 1., 1., 0., 0., 1., 0., 1., 0., 0., 0.,
            0., 0., 1.], dtype=float32)>
 
 
@@ -2639,10 +2662,10 @@ ensemble_results
 
 
 
-    {'accuracy': 77.95275590551181,
-     'f1': 0.7799385559623664,
-     'precision': 0.7827644591301087,
-     'recall': 0.7795275590551181}
+    {'accuracy': 79.92125984251969,
+     'f1': 0.7991404257926901,
+     'precision': 0.7990931458872615,
+     'recall': 0.7992125984251969}
 
 
 
@@ -2693,59 +2716,59 @@ all_model_results
     </tr>
     <tr>
       <th>simple_dense</th>
-      <td>0.782152</td>
-      <td>0.786845</td>
-      <td>0.782152</td>
-      <td>0.779088</td>
+      <td>0.784777</td>
+      <td>0.789165</td>
+      <td>0.784777</td>
+      <td>0.781896</td>
     </tr>
     <tr>
       <th>lstm</th>
-      <td>0.778215</td>
-      <td>0.778385</td>
-      <td>0.778215</td>
-      <td>0.778288</td>
+      <td>0.780840</td>
+      <td>0.781487</td>
+      <td>0.780840</td>
+      <td>0.779482</td>
     </tr>
     <tr>
       <th>gru</th>
-      <td>0.783465</td>
-      <td>0.785557</td>
-      <td>0.783465</td>
-      <td>0.781439</td>
+      <td>0.771654</td>
+      <td>0.771295</td>
+      <td>0.771654</td>
+      <td>0.771282</td>
     </tr>
     <tr>
       <th>bidirectional</th>
-      <td>0.774278</td>
-      <td>0.775989</td>
-      <td>0.774278</td>
-      <td>0.772231</td>
+      <td>0.761155</td>
+      <td>0.761888</td>
+      <td>0.761155</td>
+      <td>0.759376</td>
     </tr>
     <tr>
       <th>conv1d</th>
-      <td>0.769029</td>
-      <td>0.770603</td>
-      <td>0.769029</td>
-      <td>0.766934</td>
+      <td>0.757218</td>
+      <td>0.758599</td>
+      <td>0.757218</td>
+      <td>0.754947</td>
     </tr>
     <tr>
       <th>tf_hub_sentence_encoder</th>
-      <td>0.817585</td>
-      <td>0.817793</td>
-      <td>0.817585</td>
-      <td>0.816933</td>
+      <td>0.820210</td>
+      <td>0.822627</td>
+      <td>0.820210</td>
+      <td>0.818728</td>
     </tr>
     <tr>
       <th>tf_hub_10_percent_data</th>
-      <td>0.765092</td>
-      <td>0.774665</td>
-      <td>0.765092</td>
-      <td>0.759687</td>
+      <td>0.772966</td>
+      <td>0.777064</td>
+      <td>0.772966</td>
+      <td>0.769850</td>
     </tr>
     <tr>
       <th>ensemble_results</th>
-      <td>0.779528</td>
-      <td>0.782764</td>
-      <td>0.779528</td>
-      <td>0.779939</td>
+      <td>0.799213</td>
+      <td>0.799093</td>
+      <td>0.799213</td>
+      <td>0.799140</td>
     </tr>
   </tbody>
 </table>
@@ -2790,13 +2813,13 @@ loaded_model_6 = tf.keras.models.load_model(
 loaded_model_6.evaluate(val_sentences, val_labels)
 ```
 
-    24/24 [==============================] - 1s 9ms/step - loss: 0.4258 - accuracy: 0.8176
+    24/24 [==============================] - 1s 16ms/step - loss: 0.4275 - accuracy: 0.8202
     
 
 
 
 
-    [0.4257993996143341, 0.817585289478302]
+    [0.4274521470069885, 0.8202099800109863]
 
 
 
@@ -2830,19 +2853,19 @@ loaded_model_6_SavedModel = tf.keras.models.load_model("model_6_SavedModel_forma
 loaded_model_6_SavedModel.evaluate(val_sentences, val_labels)
 ```
 
-    24/24 [==============================] - 1s 10ms/step - loss: 0.4258 - accuracy: 0.8176
+    24/24 [==============================] - 1s 15ms/step - loss: 0.4275 - accuracy: 0.8202
     
 
 
 
 
-    [0.4257993996143341, 0.817585289478302]
+    [0.4274521470069885, 0.8202099800109863]
 
 
 
 Gördüğünüz gibi, modelimizi her iki formatta da kaydedip yüklemek aynı performansı veriyor.
 
-> 🤔 **Soru:** "KayıtlıModel" biçimini mi yoksa "HDF5" biçimini mi kullanmalısınız?
+> 🤔 **Soru:** "loadModel" biçimini mi yoksa "HDF5" biçimini mi kullanmalısınız?
 
 Çoğu kullanım durumu için `SavedModel` formatı yeterli olacaktır. Ancak bu, TensorFlow'a özel bir standarttır. Daha genel amaçlı bir veri standardına ihtiyacınız varsa, "HDF5" daha iyi olabilir.
 
@@ -2902,35 +2925,35 @@ val_df.head()
       <td>DFR EP016 Monthly Meltdown - On Dnbheaven 2015...</td>
       <td>0</td>
       <td>0.0</td>
-      <td>0.211150</td>
+      <td>0.168588</td>
     </tr>
     <tr>
       <th>1</th>
       <td>FedEx no longer to transport bioterror germs i...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.824494</td>
+      <td>0.787065</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Gunmen kill four in El Salvador bus attack: Su...</td>
       <td>1</td>
       <td>1.0</td>
-      <td>0.986701</td>
+      <td>0.986646</td>
     </tr>
     <tr>
       <th>3</th>
       <td>@camilacabello97 Internally and externally scr...</td>
       <td>1</td>
       <td>0.0</td>
-      <td>0.232937</td>
+      <td>0.184919</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Radiation emergency #preparedness starts with ...</td>
       <td>1</td>
       <td>1.0</td>
-      <td>0.771707</td>
+      <td>0.745240</td>
     </tr>
   </tbody>
 </table>
@@ -2979,70 +3002,70 @@ most_wrong[:10]
       <td>? High Skies - Burning Buildings ? http://t.co...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.933326</td>
+      <td>0.915444</td>
     </tr>
     <tr>
       <th>759</th>
       <td>FedEx will no longer transport bioterror patho...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.906695</td>
-    </tr>
-    <tr>
-      <th>628</th>
-      <td>@noah_anyname That's where the concentration c...</td>
-      <td>0</td>
-      <td>1.0</td>
-      <td>0.883666</td>
+      <td>0.892491</td>
     </tr>
     <tr>
       <th>49</th>
       <td>@madonnamking RSPCA site multiple 7 story high...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.878714</td>
+      <td>0.862208</td>
     </tr>
     <tr>
-      <th>109</th>
-      <td>[55436] 1950 LIONEL TRAINS SMOKE LOCOMOTIVES W...</td>
+      <th>628</th>
+      <td>@noah_anyname That's where the concentration c...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.874096</td>
-    </tr>
-    <tr>
-      <th>393</th>
-      <td>@SonofLiberty357 all illuminated by the bright...</td>
-      <td>0</td>
-      <td>1.0</td>
-      <td>0.868922</td>
+      <td>0.851035</td>
     </tr>
     <tr>
       <th>209</th>
       <td>Ashes 2015: AustraliaÛªs collapse at Trent Br...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.834798</td>
+      <td>0.840667</td>
     </tr>
     <tr>
-      <th>144</th>
-      <td>The Sound of Arson</td>
+      <th>393</th>
+      <td>@SonofLiberty357 all illuminated by the bright...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.831975</td>
+      <td>0.826442</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>[55436] 1950 LIONEL TRAINS SMOKE LOCOMOTIVES W...</td>
+      <td>0</td>
+      <td>1.0</td>
+      <td>0.825141</td>
     </tr>
     <tr>
       <th>251</th>
       <td>@AshGhebranious civil rights continued in the ...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.826876</td>
+      <td>0.813603</td>
+    </tr>
+    <tr>
+      <th>698</th>
+      <td>åÈMGN-AFRICAå¨ pin:263789F4 åÈ Correction: Ten...</td>
+      <td>0</td>
+      <td>1.0</td>
+      <td>0.791938</td>
     </tr>
     <tr>
       <th>1</th>
       <td>FedEx no longer to transport bioterror germs i...</td>
       <td>0</td>
       <td>1.0</td>
-      <td>0.824494</td>
+      <td>0.787065</td>
     </tr>
   </tbody>
 </table>
@@ -3065,19 +3088,25 @@ for row in most_wrong[:10].itertuples():
   print("----\n")
 ```
 
-    Target: 0, Pred: 1, Prob: 0.9333264827728271
+    Target: 0, Pred: 1, Prob: 0.9154438972473145
     Text:
     ? High Skies - Burning Buildings ? http://t.co/uVq41i3Kx2 #nowplaying
     
     ----
     
-    Target: 0, Pred: 1, Prob: 0.9066951870918274
+    Target: 0, Pred: 1, Prob: 0.8924906253814697
     Text:
     FedEx will no longer transport bioterror pathogens in wake of anthrax lab mishaps http://t.co/lHpgxc4b8J
     
     ----
     
-    Target: 0, Pred: 1, Prob: 0.8836658596992493
+    Target: 0, Pred: 1, Prob: 0.8622081279754639
+    Text:
+    @madonnamking RSPCA site multiple 7 story high rise buildings next to low density character residential in an area that floods
+    
+    ----
+    
+    Target: 0, Pred: 1, Prob: 0.8510348796844482
     Text:
     @noah_anyname That's where the concentration camps and mass murder come in. 
      
@@ -3085,43 +3114,37 @@ for row in most_wrong[:10].itertuples():
     
     ----
     
-    Target: 0, Pred: 1, Prob: 0.878714382648468
-    Text:
-    @madonnamking RSPCA site multiple 7 story high rise buildings next to low density character residential in an area that floods
-    
-    ----
-    
-    Target: 0, Pred: 1, Prob: 0.8740962147712708
-    Text:
-    [55436] 1950 LIONEL TRAINS SMOKE LOCOMOTIVES WITH MAGNE-TRACTION INSTRUCTIONS http://t.co/xEZBs3sq0y http://t.co/C2x0QoKGlY
-    
-    ----
-    
-    Target: 0, Pred: 1, Prob: 0.8689219355583191
-    Text:
-    @SonofLiberty357 all illuminated by the brightly burning buildings all around the town!
-    
-    ----
-    
-    Target: 0, Pred: 1, Prob: 0.8347980976104736
+    Target: 0, Pred: 1, Prob: 0.8406673073768616
     Text:
     Ashes 2015: AustraliaÛªs collapse at Trent Bridge among worst in history: England bundled out Australia for 60 ... http://t.co/t5TrhjUAU0
     
     ----
     
-    Target: 0, Pred: 1, Prob: 0.8319746851921082
+    Target: 0, Pred: 1, Prob: 0.8264415860176086
     Text:
-    The Sound of Arson
+    @SonofLiberty357 all illuminated by the brightly burning buildings all around the town!
     
     ----
     
-    Target: 0, Pred: 1, Prob: 0.8268764019012451
+    Target: 0, Pred: 1, Prob: 0.8251414895057678
+    Text:
+    [55436] 1950 LIONEL TRAINS SMOKE LOCOMOTIVES WITH MAGNE-TRACTION INSTRUCTIONS http://t.co/xEZBs3sq0y http://t.co/C2x0QoKGlY
+    
+    ----
+    
+    Target: 0, Pred: 1, Prob: 0.813603401184082
     Text:
     @AshGhebranious civil rights continued in the 60s. And what about trans-generational trauma? if anything we should listen to the Americans.
     
     ----
     
-    Target: 0, Pred: 1, Prob: 0.8244935274124146
+    Target: 0, Pred: 1, Prob: 0.791938304901123
+    Text:
+    åÈMGN-AFRICAå¨ pin:263789F4 åÈ Correction: Tent Collapse Story: Correction: Tent Collapse story åÈ http://t.co/fDJUYvZMrv @wizkidayo
+    
+    ----
+    
+    Target: 0, Pred: 1, Prob: 0.7870645523071289
     Text:
     FedEx no longer to transport bioterror germs in wake of anthrax lab mishaps http://t.co/qZQc8WWwcN via @usatoday
     
@@ -3139,61 +3162,61 @@ for row in most_wrong[-10:].itertuples():
   print("----\n")
 ```
 
-    Target: 1, Pred: 0, Prob: 0.07638642191886902
+    Target: 1, Pred: 0, Prob: 0.05815977230668068
     Text:
     'The way you move is like a full on rainstorm and I'm a house of cards'
     
     ----
     
-    Target: 1, Pred: 0, Prob: 0.06680670380592346
+    Target: 1, Pred: 0, Prob: 0.0545167438685894
     Text:
-    Lucas Duda is Ghost Rider. Not the Nic Cage version but an actual 'engulfed in flames' badass. #Mets
+    @DavidVonderhaar At least you were sincere ??
     
     ----
     
-    Target: 1, Pred: 0, Prob: 0.06613775342702866
+    Target: 1, Pred: 0, Prob: 0.05418562889099121
     Text:
     going to redo my nails and watch behind the scenes of desolation of smaug ayyy
     
     ----
     
-    Target: 1, Pred: 0, Prob: 0.06331083923578262
-    Text:
-    @willienelson We need help! Horses will die!Please RT &amp; sign petition!Take a stand &amp; be a voice for them! #gilbert23 https://t.co/e8dl1lNCVu
-    
-    ----
-    
-    Target: 1, Pred: 0, Prob: 0.060991670936346054
+    Target: 1, Pred: 0, Prob: 0.05028621107339859
     Text:
     You can never escape me. Bullets don't harm me. Nothing harms me. But I know pain. I know pain. Sometimes I share it. With someone like you.
     
     ----
     
-    Target: 1, Pred: 0, Prob: 0.04729391261935234
+    Target: 1, Pred: 0, Prob: 0.04881070926785469
     Text:
-    @SoonerMagic_ I mean I'm a fan but I don't need a girl sounding off like a damn siren
+    @willienelson We need help! Horses will die!Please RT &amp; sign petition!Take a stand &amp; be a voice for them! #gilbert23 https://t.co/e8dl1lNCVu
     
     ----
     
-    Target: 1, Pred: 0, Prob: 0.043367695063352585
+    Target: 1, Pred: 0, Prob: 0.04162179306149483
     Text:
     I get to smoke my shit in peace
     
     ----
     
-    Target: 1, Pred: 0, Prob: 0.04216489568352699
-    Text:
-    Reddit Will Now QuarantineÛ_ http://t.co/pkUAMXw6pm #onlinecommunities #reddit #amageddon #freespeech #Business http://t.co/PAWvNJ4sAP
-    
-    ----
-    
-    Target: 1, Pred: 0, Prob: 0.0363759845495224
+    Target: 1, Pred: 0, Prob: 0.03738167881965637
     Text:
     Why are you deluged with low self-image? Take the quiz: http://t.co/XsPqdOrIqj http://t.co/CQYvFR4UCy
     
     ----
     
-    Target: 1, Pred: 0, Prob: 0.030536090955138206
+    Target: 1, Pred: 0, Prob: 0.036325037479400635
+    Text:
+    Reddit Will Now QuarantineÛ_ http://t.co/pkUAMXw6pm #onlinecommunities #reddit #amageddon #freespeech #Business http://t.co/PAWvNJ4sAP
+    
+    ----
+    
+    Target: 1, Pred: 0, Prob: 0.035058073699474335
+    Text:
+    @SoonerMagic_ I mean I'm a fan but I don't need a girl sounding off like a damn siren
+    
+    ----
+    
+    Target: 1, Pred: 0, Prob: 0.027997875586152077
     Text:
     Ron &amp; Fez - Dave's High School Crush https://t.co/aN3W16c8F6 via @YouTube
     
@@ -3221,67 +3244,63 @@ for test_sample in test_samples:
   print("----\n")
 ```
 
-    Pred: 1, Prob: 0.5674287676811218
+    Pred: 0, Prob: 0.02110372669994831
     Text:
-    Marin Sr37 / Sr121 **Trfc Collision-Unkn Inj** http://t.co/yqJVEVhSzx
+    @noobde this monkey will be a good character in mkx lol banana fatality
     
     ----
     
-    Pred: 0, Prob: 0.18044838309288025
+    Pred: 0, Prob: 0.08776362240314484
     Text:
-    Sometimes blood ain't no thicker than water and sometimes family will bring you down quicker than strangers ???????
+    genuine Leather man Bag Messenger fit iPad mini 4 tablet case cross body air jp - Full reaÛ_ http://t.co/Vl26HSrq4E http://t.co/ryl0Y88fKM
     
     ----
     
-    Pred: 1, Prob: 0.9360947608947754
+    Pred: 0, Prob: 0.3871268928050995
     Text:
-    Agricultural Buildings on Fire - Aldwark - NYorks Fire &amp; Rescue Service 
-    
-    Still grim news but fewer piglets caught up http://t.co/0kjCWG6pN9
+    It was finally demolished in the spring of 2013 and the property has sat vacant since. The justÛ_: saddlebrooke... http://t.co/bd5B5yffyb
     
     ----
     
-    Pred: 1, Prob: 0.936579704284668
+    Pred: 1, Prob: 0.7170340418815613
     Text:
-    See how a judge ruled in this 2009 accident at #JFK Airport? involving Korean Air?.
-    
-    http://t.co/Yh1cGlN3rl http://t.co/6F5ShPKjOB
+    Bioterrorism and Ebola. http://t.co/ORIOVftLK4 RT #STOPIslam #TCOT #CCOT #MakeDCListen #TeaParty
     
     ----
     
-    Pred: 0, Prob: 0.09350459277629852
+    Pred: 1, Prob: 0.9093793630599976
     Text:
-    @FollowerOfDole 'Give me your lunch money ner-' *flattened by falling quarter*
+    Evacuation order lifted for town of Roosevelt - Washington Times http://t.co/Kue48Nmjxh
     
     ----
     
-    Pred: 0, Prob: 0.04109868034720421
+    Pred: 0, Prob: 0.21379774808883667
     Text:
-    100  1' MIX NEW FLAT DOUBLE SIDED LINERLESS BOTTLE CAPS YOU CHOOSE MIX FLATTENED - Full reÛ_ http://t.co/61fALvOCuK http://t.co/1MuTpFcgDL
+    It's nice out. Guessing the heat wave is over.
     
     ----
     
-    Pred: 1, Prob: 0.6397950649261475
+    Pred: 0, Prob: 0.13666385412216187
     Text:
-    @Trubeque Destruction magic's fine just don't go burning any buildings.
+    @DukeSkywalker @facialabuse you should do a competetion between @xxxmrbootleg &amp; #ClaudioMeloni (ultimate throat penetrator) to a wreck off.
     
     ----
     
-    Pred: 0, Prob: 0.125456303358078
+    Pred: 0, Prob: 0.3559725284576416
     Text:
-    Time heals all wounds. And if it doesn't you name them something other than wounds and agree to let them stay. ????
+    CommoditiesåÊAre Crashing Like It's 2008 All Over Again http://t.co/EM1cN7alGk
     
     ----
     
-    Pred: 0, Prob: 0.1686350554227829
+    Pred: 0, Prob: 0.1974869817495346
     Text:
-    Nooooo the village hotty is dead ???????? #Emmerdale
+    Serial arsonist gets no bail not jail release http://t.co/rozs6aumsS
     
     ----
     
-    Pred: 0, Prob: 0.0520525760948658
+    Pred: 0, Prob: 0.13319750130176544
     Text:
-    Businesses cre deluged with invoices. Make yours stand out with colour or shape and it's likely to rise to the top of the pay' cile.
+    Choking Hazard Prompts Recall Of Kraft Cheese Singles http://t.co/98nOsYzu58
     
     ----
     
@@ -3334,7 +3353,7 @@ model_6_total_pred_time, model_6_time_per_pred
 
 
 
-    (0.22613020000062534, 0.00029675879265173927)
+    (0.3335412910000173, 0.0004377182296588153)
 
 
 
@@ -3347,7 +3366,7 @@ baseline_total_pred_time, baseline_time_per_pred
 
 
 
-    (0.016506090001712437, 2.1661535435318158e-05)
+    (0.023066670999980943, 3.0271221784751892e-05)
 
 
 
@@ -3370,7 +3389,7 @@ plt.ylabel("F1-Score");
 
 
     
-![png](8-NLP%27ye%20Giri%C5%9F_files/8-NLP%27ye%20Giri%C5%9F_206_0.png)
+![png](8-NLP%27ye%20Giris_files/8-NLP%27ye%20Giris_207_0.png)
     
 
 
