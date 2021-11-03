@@ -429,13 +429,13 @@ plot_loss_curves(resnet_history)
 
 
     
-![png](TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__files/TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__25_0.png)
+![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot1.png)
     
 
 
 
     
-![png](TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__files/TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__25_1.png)
+![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot2.png)
     
 
 
@@ -510,13 +510,13 @@ plot_loss_curves(efficientnet_history)
 
 
     
-![png](TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__files/TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__30_0.png)
+![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot3.png)
     
 
 
 
     
-![png](TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__files/TensorFlow_ile_Transfer_Learning_%C3%96zellik_%C3%87%C4%B1kar%C4%B1m%C4%B1_%28Feature_Extraction%29__30_1.png)
+![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot4.png)
     
 
 
