@@ -429,13 +429,10 @@ plot_loss_curves(resnet_history)
 
 
     
-![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot1.png)
+![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot1.png?raw=true)
     
-
-
-
     
-![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot2.png)
+![png](https://github.com/Furkan-Gulsen/TensorFlow-ile-Yapay-Zeka-Gelistirme/blob/main/4-Transfer%20Learning%20-%20%C3%96zellik%20%C3%87%C4%B1kar%C4%B1m%C4%B1%20(Feature%20extraction)/images/plot2.png?raw=true)
     
 
 
